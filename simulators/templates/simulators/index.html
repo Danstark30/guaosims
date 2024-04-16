@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulators</title>
+    <style>
+      @font-face {
+        font-family: aeromatics;
+        src: url("/static/simulators/AeroMatics-Regular.ttf");
+      }
+      body {
+        font-family: aeromatics;
+        background-color: #000000;
+        color: #ffffff;
+        text-align: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url("{% static "simulators/lab.png" %}");
+        padding: 0;
+        margin: 0;
+      }
+      #fondo {
+        padding: 0;
+        margin: 0;
+        top: 0;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.85);
+      }
+      .container {
+        margin-top: 50px;
+        background-color: #fffff;
+        position: relative;
+      }
+      .card1 {
+        padding: 10px;
+        filter: opacity(1);
+        border-radius: 12px;
+        background-color: #ffffff;
+        display: inline-block;
+        font-weight: bold;
+        font-size: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+        width: 70%;
+        max-width: 350px;
+        height: 230px;
+        box-shadow: 0.5px 0.5px #ffffff inset, 4px 4px 8px #000000;
+      }
+      .card1:hover {
+        display: inline-block;
+        filter: opacity(0.3);
+        font-weight: bold;
+        font-size: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+        width: 95%;
+        box-shadow: 0.5px 0.5px #ffffff inset, 4px 4px 8px #000000;
+      }
+      .cardimg1 {
+        display: block;
+        width: 70%;
+        margin: 0 auto;
+      }
+      .cardimg2 {
+        display: block;
+        height: 60%;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>UAO SIMS</h1>
+    <div
+      style="
+        text-align: justify;
+        color: #ffffff;
+        width: 95%;
+        position: relative;
+        margin: 0 auto;
+        margin-top: 50px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      "
+    >
+      <p style="max-width: 90%">
+        El laboratorio virtual UAOSIMS te permite experimentar con diferentes
+        tipos de simuladores de señales biomédicas. Algunos de ellos te
+        acercan a la experiencia visual de los dispositivos comerciales que
+        los registran o simulan, mientras otros te ofrecen una visión al
+        interior de su diseño electrónico. Además, el laboratorio cuenta con
+        una serie de videos que demuestran el funcionamiento de algunos
+        equipos comunes, y una sección de enlaces externos con simuladores que
+        amplían la variedad de equipos biomédicos que puedes conocer desde tu
+        computador o dispositivo móvil.
+      </p>
+    </div>
+    <div class="container">
+      <a href="{% url 'ecg' %}"
+        ><div class="card1">
+          <br />ECG<br /><br /><img
+            class="cardimg1"
+            src="{% static 'simulators/Slide1.JPG' %}"
+          /></div
+      ></a>
+      <a href="{% url 'nibp' %}"
+        ><div class="card1">
+          <br />NIBP<br /><br /><img
+            class="cardimg1"
+            src="{% static 'simulators/Slide2.JPG' %}"
+          /></div
+      ></a>
+      <a href="{% url 'spo2' %}"
+        ><div class="card1">
+          <br />SpO2<br /><br /><img
+            class="cardimg1"
+            src="{% static 'simulators/Slide3.PNG' %}"
+          /></div
+      ></a>
+      <a href="{% url 'sim_abiertos' %}"
+        ><div class="card1">
+          <br />Simuladores abiertos<br /><br /><img
+            class="cardimg1"
+            src="{% static 'simulators/amp.JPG' %}"
+          /></div
+      ></a>
+      <a href="{% url 'videos' %}"
+        ><div class="card1">
+          <br />Videos Educativos<br /><br /><img
+            class="cardimg2"
+            src="{% static 'simulators/videos.jpg' %}"
+          /></div
+      ></a>
+      <a href="{% url 'links' %}"
+        ><div class="card1">
+          <br />Enlaces Externos<br /><br /><img
+            class="cardimg2"
+            src="{% static 'simulators/external.png' %}"
+          /></div
+      ></a>
+    </div>
+  </body>
+</html>

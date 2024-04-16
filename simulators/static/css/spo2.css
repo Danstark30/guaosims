@@ -1,0 +1,153 @@
+body {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-image: url("../simulators/lab.png");
+}
+@font-face {
+	font-family: aeromatics;
+	src: url("/static/simulators/AeroMatics-Regular.ttf");
+}
+@font-face {
+	font-family: LT-Emphasis;
+	src: url("/static/simulators/LT-Emphasis.ttf");
+}
+input {
+	width: 75px;
+	border-radius: 8px;
+	background-color: #e6e6f2;
+	font-family: "aeromatics";
+	height: 30px;
+	text-align: center;
+}
+.btn {
+	border-style: outset;
+	border-radius: 8px;
+	background-color: #e8c76a;
+	font-family: "aeromatics";
+	text-align: center;
+	height: 40px;
+	width: 180px;
+	margin: 10px auto;
+}
+form {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	max-height: 450px;
+	justify-content: space-around;
+}
+
+form select {
+	height: 35px;
+}
+form .row {
+	display:flex;
+	justify-content: space-around;
+}
+
+form .row select {
+	flex-grow: 1;
+	margin-right: 8px;
+}
+
+button {
+	cursor: pointer;
+	border-style: outset;
+	background-color: #ffffff;
+	width: 100px;
+	height: 40px;
+	margin-right: 20px;
+	border-radius: 8px;
+	font-family: "aeromatics";
+}
+select {
+	border-radius: 4px;
+	background-color: #e8c76a;
+	font-family: aeromatics;
+	height: 35px;
+	margin: 0 0 20px 0;
+}
+.monitor {
+	background-color: blue;
+	color: #ffffff;
+	font-family: LT-Emphasis;
+}
+.monitorInput {
+	font-family: LT-Emphasis;
+}
+.modal {
+	overflow: scroll;
+	background-color: rgba(0, 0, 0, 0.8);
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+	pointer-events: none;
+	transition: all 1s;
+	z-index: 2;
+}
+.modal-content {
+	color: #000000;
+	background-color: #ffffff;
+	width: 80%;
+	max-width: 800px;
+	padding: 10px 20px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	position: relative;
+}
+.modal-content p {
+	text-align: justify;
+	font-size: 18px;
+}
+.modal-content img {
+	width: 80%;
+	max-width: 200px;
+	height: 80%;
+	padding: 20px;
+}
+@media only screen and (max-width: 480px) {
+	.modal-content div{
+		display: flex;
+		flex-wrap: wrap;
+	}
+}
+
+.modal-content3 {
+	color: #000000;
+	background-color: #ffffff;
+	width: 300px;
+	padding: 10px 20px;
+	margin: 20% auto;
+	position: relative;
+}
+#modal:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+#modal2:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+#modalDisminuida:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+#modalCritica:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+#modalSevera:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+#modalMortal:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+.modalimg {
+	width: 200px;
+}

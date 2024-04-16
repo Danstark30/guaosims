@@ -1,0 +1,1217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NIBP | Simulators</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/a98919fe7f.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="{% static 'css/nibp.css' %}" />
+  </head>
+  <body style="text-align: center">
+    <div id="fondo">
+      <div
+        style="position: relative; width: 100%; height: 100%; margin-top: 20px"
+      >
+        <div style="display: inline-block; vertical-align: top">
+          <div style="text-align: left">
+            <!-- Hipervínculo con el botón para ir a la página de inicio -->
+            <a href="{% url 'index' %}">
+              <button style="margin-left: 15px">
+                <i class="fa fa-home"></i> Inicio
+              </button>
+            </a>
+          </div>
+          <br />
+          <div
+            style="
+              border-radius: 12px;
+              vertical-align: top;
+              padding: 40px;
+              margin-left: 10px;
+              margin-right: 10px;
+              margin-bottom: 20px;
+              color: #ffffff;
+              background-color: #344439;
+              width: 95%;
+              max-width: 300px;
+              display: inline-block;
+            "
+          >
+            <!-- Hipervínculo con la imagen de la ingeniera para abrir la ventana modal -->
+            <a href="#modal">
+              <img
+                src="{% static 'simulators/ingeniera-mitad.png' %}"
+                style="margin-top: -20px; margin-left: 250px; width: 50px"
+              />
+            </a>
+            <!-- Ventana modal con las instrucciones de uso del simulador -->
+            <div id="modal" class="modal">
+              <div
+                class="modal-content"
+                style="font-family: aeromatics; border-radius: 20px; overflow: auto; max-height: 500px;"
+              >
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"
+                ><i
+                  class="fas fa-times-circle"
+                  style="color: black; font-size: 26px; position:absolute; right: 10px; top:20px"
+                ></i
+                ></a>
+
+                <div style="display: flex; justify-content: space-around; padding: 20px">
+                  <img
+                    src="{% static 'simulators/ingeniera-completa.png'  %}"
+                    style="
+                      max-width: 250px;
+                      -webkit-transform: scaleX(-1);
+                      transform: scaleX(-1);
+                      padding-top: 15px;
+                    "
+                  />
+                  <div style="padding:20px;">
+                    <div style="display: flex; margin-bottom: 0; flex-wrap: nowrap;">
+                      <h2 style="padding: 0 20px; margin:0">
+                        Bienvenido al simulador de presión arterial no invasiva
+                      </h2>
+                    </div>
+                    <div style="display: flex; justify-content: center; flex-direction: column;">
+                      <h3>UAOSIMS NIBP</h2>
+                      <p>
+                        En esta guía aprenderás a las diferentes funciones del simulador y
+                        cómo pueden ayudarte a entender más acerca de las señales de presión
+                        arterial en el monitoreo no invasivo (NIBP). Recuerda que al actualizar
+                        los parámetros de simulación debes siempre presionar el botón
+                        <span style="border-radius: 8px;
+                        background-color: #e8c76a;
+                        padding: 0 5px">
+                        Simular
+                        </span>
+                        para visualizar los cambios
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/nibp1.JPG'  %}"
+                  />
+                  <p>La primera casilla de selección te permite seleccionar
+                    varias combinaciones predeterminadas de valores de presión
+                    arterial sistólica (PS), diastólica (PD) y de Frecuencia Cardiaca (FC).
+                    Estos valores vienen dados por diversas patologías en un paciente que
+                    pueden causar hipotensión o hipertensión. Además, cambian constantemente
+                    en nuestros cuerpos, dependiendo de la actividad que estemos realizando,
+                    nuestro estado emocional o nuestra condición física.
+                  </p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <p>Actividad: Prueba a simular tres combinaciones y observa qué cambios tienen en sus características: ¿Cuál es el valor de presión más alto observado en la gráfica superior? ¿Cuál es el significado de las líneas amarillas al finalizar la simulación? ¿Cómo se relaciona la gráfica superior con la inferior?</p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/nibp3.JPG'  %}"
+                  />
+                  <p>La segunda casilla de selección te permitirá elegir entre varios valores predeterminados de presión sistólica (PS), dados en milímetros de mercurio (mmHg). Adicionalmente, puedes seleccionar cualquier valor entero de PS (en un rango de 60 a 200) digitándolo en la casilla de texto del lado derecho. </p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <p>Actividad: Prueba a simular valores muy bajos o altos de PS ¿Qué cambios observas en la forma de la onda? ¿Qué pasa si selecciono un valor de PS por debajo de la PD?</p></div>
+                
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/nibp2.JPG'  %}"
+                  />
+                  <div style="display: flex; padding: 0 30px;">
+                    <p>La tercera casilla de selección te permitirá elegir entre varios valores predeterminados de presión diastólica (PD), dados en milímetros de mercurio (mmHg). Adicionalmente, puedes seleccionar cualquier valor entero de PD (en un rango de 30 a 140) digitándolo en la casilla de texto del lado derecho. </p>
+                  </div>
+                </div>
+                <div style="display: flex; padding: 0 30px;">
+                  <p>Actividad: Prueba a simular valores de 0, 0.5 y 10mV ¿Qué cambios observas en la forma de la onda? </p>
+                </div>
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/ruido_nibp.JPG'  %}"
+                  />
+                  <div style="display: flex; padding: 0 30px;">
+                    <p>La cuarta casilla denominada artefactos, te permitirá incluir un artefacto o ruido de movimiento a 0.1 Hertz (Hz), puedes variar la amplitud establecida por defecto del artefacto, el cual se puede presentar en cualquier instante de la medición de presión. </p>
+                  </div>
+                </div>
+                <div style="display: flex; padding: 0 30px;">
+                  <p>Actividad: Prueba a simular con ruido ¿Qué cambios observas en la forma de la onda? </p>
+                </div>
+              </div>
+            </div>
+            <!-- Fin de la ventana modal con las instrucciones de uso del simulador -->
+            <!-- Lista desplegable de valores predeterminados de presión sistólica, diastólica y frecuencia cardíaca -->
+            <!-- Lista desplegable de valores predeterminados de presión sistólica -->
+            <form name="form" method="POST" id="nibpForm" onsubmit="activeCharge()">
+              {% csrf_token %}
+              <select name="clase" id="default" onchange="optionDefault()" form="nibpForm">
+                <option value="aa">Valores manuales</option>
+                <option value="a">Hipotensión Severa</option>
+                <option value="b">Hipotensión Moderada</option>
+                <option value="c">Normal</option>
+                <option value="d">Óptima</option>
+                <option value="e">Hipertensión Ligera</option>
+                <option value="f">Hipertensión Moderada</option>
+                <option value="g">Hipertensión Severa</option>
+                <option value="h">Hipertensión Sistólica Aislada</option>
+              </select>
+              <br /><br />
+              <select id="defaultPS" onchange="default2('defaultPS')">
+                <option>Presión Sistólica (mmHg)</option>
+                <option value="60">60 mmHg</option>
+                <option value="80">80 mmHg</option>
+                <option value="100">100 mmHg</option>
+                <option value="120">120 mmHg</option>
+                <option value="150">150 mmHg</option>
+                <option value="200">200 mmHg</option>
+              </select>
+              <!-- Caja de texto para la entrada manual del valor de presión sistólica -->
+              <input
+                required
+                id="ps"
+                name="ps"
+                type="number"
+                onchange="changeP()"
+                value="{{ setps }}"
+                placeholder="PS"
+                min="60"
+                max="200"
+                style="height: 30px; text-align: center"
+              /><br /><br />
+              <!-- Lista desplegable de valores predeterminados de presión diastólica -->
+              <select id="defaultPD" onchange="default2('defaultPD')">
+                <option>Presión Diastólica (mmHg)</option>
+                <option value="30">30 mmHg</option>
+                <option value="48">48 mmHg</option>
+                <option value="65">65 mmHg</option>
+                <option value="80">80 mmHg</option>
+                <option value="95">95 mmHg</option>
+                <option value="140">140 mmHg</option>
+              </select>
+              <!-- Caja de texto para la entrada manual del valor de presión diastólica -->
+              <input
+                required
+                id="pd"
+                name="pd"
+                type="number"
+                onchange="changeP()"
+                value="{{ setpd }}"
+                placeholder="PD"
+                min="30"
+                max="140"
+                style="height: 30px; text-align: center"
+                oninvalid="Debe ser menor a 30 o la presión sistólica"
+              /><br /><br />
+              <!-- Lista desplegable de valores predeterminados de frecuencia cardíaca -->
+              <select id="defaultFC" onchange="default2('defaultFC')">
+                <option>Frecuencia Cardíaca (lpm)</option>
+                <option value="40">40 lpm</option>
+                <option value="50">50 lpm</option>
+                <option value="60">60 lpm</option>
+                <option value="80">80 lpm</option>
+                <option value="90">90 lpm</option>
+                <option value="100">100 lpm</option>
+                <option value="120">120 lpm</option>
+                <option value="140">140 lpm</option>
+                <option value="160">160 lpm</option>
+                <option value="180">180 lpm</option>
+                <option value="200">200 lpm</option>
+              </select>
+              <!-- Caja de texto para la entrada manual del valor de frecuencia cardíaca -->
+              <input
+                required
+                id="fc"
+                name="fc"
+                type="number"
+                onchange="document.getElementById('default').selectedIndex=0; document.getElementById('defaultFC').selectedIndex=0"
+                value="{{ setfc }}"
+                placeholder="FC"
+                min="40"
+                max="200"
+                style="height: 30px; text-align: center"
+              /><br /><br />
+              <input type='hidden' id='hiddenField' name='noise' value=''/>
+              <div class="dropdown" name="noiseDiv">
+                <button
+                  id="ruido"
+                  class="btn"
+                  type="button"
+                  value="Descargar"
+                  style="text-align: center; height: 40px; width: 180px;"
+                  onclick="activeNoise()"
+                >
+                  Artefactos
+                </button>
+                <div
+                  class="noiseDropdown"
+                  id="noiseDropdown"
+                >
+                  <ul id="noiseList">
+                    <li>
+                      <input type="checkbox" onClick="abledNoise('ampNoise', this.id)" id="checkNoise"></input>
+                      <label> 0.1 Hz (Artefacto de Movimiento) </label>
+                      <input type="number" id="ampNoise" placeholder="(%)" min="0" max="1000" disabled>%</input>                      
+                    </li>
+                  </ul>
+                </div>
+              </div>              
+              <!-- Botón para enviar los datos y simular -->
+              <input
+                id="simulateButton"
+                class="btn"
+                type="submit"
+                value="Simular"
+                style="text-align: center; height: 40px; width: 180px"
+                onClick="activeInputs()"
+              />
+              <button
+                id="descargar"
+                class="btn"
+                type="button"
+                value="Descargar"
+                style="text-align: center; height: 40px; width: 180px;margin: 10px 5%"
+                onclick="downloadCsv()"
+                disabled
+              >
+                Descargar
+              </button>
+            </form>
+          </div>
+        </div>
+        <div
+          style="
+            border-radius: 12px;
+            text-align: left;
+            border: #bdbdbd solid;
+            margin-left: 10px;
+            margin-right: 20px;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            vertical-align: middle;
+            width: 80%;
+            padding: 20px 30px 20px 20px;
+            max-width: 780px;
+            display: inline-block;
+          "
+        >
+          <div style="text-align: right">
+            <!-- Hipervínculo con la imagen del médico para abrir la ventana modal -->
+            <a href="#modal2" id="doctorLink" onclick="changeModal(this.id)">
+              <img
+                src="{% static 'simulators/doctor-mitad.png' %}"
+                style="display: inline-block; margin-top: -20px; width: 50px"
+              />
+            </a>
+          </div>
+          <!-- Ventana modal de bienvenida y descripción del simulador -->
+          <div id="modal2" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Bienvenido al Monitor de Presión Arterial (Tensiómetro)</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 140px;"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        padding-top: 20px;
+                        padding-left: 30px;
+                        padding-right: 30px;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      Dado que tanto la hipotensión como la hipertensión pueden afectar 
+                      potencialmente la función de los órganos vitales como el corazón, 
+                      el cerebro o los riñones, la monitorización de la presión arterial (PA) 
+                      es un pilar de la monitorización hemodinámica en los pacientes.
+                      <a href="https://www.frontiersin.org/articles/10.3389/fmed.2017.00231/full" target="_blank">(Meidert A., 2018)</a>
+                      La medición de PA no invasiva es una de las técnicas que más se 
+                      realiza a lo largo de la vida de una persona, e igualmente resulta 
+                      ser una de las técnicas de atención primaria o especializada más 
+                      habitualmente empleadas, aportando al personal médico un dato imprescindible 
+                      para saber cómo una persona se encuentra en relación a su supervivencia 
+                      (generalmente asociado a su función circulatoria), cumpliendo una misión 
+                      fundamental en la medicina preventiva.
+                      <br></br>
+                      Un esfigmomanómetro o tensiómetro es un instrumento médico empleado para la 
+                      medición no invasiva de la presión arterial en milímetros de mercurio (mmHg o torr).
+                      Se utiliza un brazalete que ocluye el paso de sangre en la arteria braquial, y poco
+                      a poco, al liberar aire y disminuir la presión, permite el flujo de sangre.
+                    </div>
+                  </div>
+                  <div style="display: flex">               
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        width: 80%;
+                        padding-top: 20px;
+                        padding-left: 30px;
+                        padding-right: 30px;
+                      ">
+                      <h4>Método Auscultatorio (Manualmente)</h4>
+                      Despues de inflar el brazalete a una presión superior a la presión sistólica
+                      (verificado por la desaparición del pulso de la arteria radial). A medida que se libera
+                      presión del brazalete, se producen los ruidos típicos de Korotkoff, los cuales son detectados
+                      mediante el uso de un estetoscopio.     
+                    </div>
+                  </div>
+                  <div style="display: flex">               
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        width: 80%;
+                        padding-top: 20px;
+                        padding-left: 30px;
+                        padding-right: 30px;
+                      ">
+                      <h4>Método Oscilométrico (Automático)</h4>
+                      El brazalete se infla automáticamente hasta que alcanza un valor
+                      de presión predeterminado. Luego la presión se reduce gradualmente,
+                      y comienzan a producirse pulsos de presión relacionados a los pulsos en la arteria
+                      braquial. La presión arterial media corresponde al pulso de presión más alto.
+                      Un algoritmo relacionado a los pulsos determina cual corresponde a la presión
+                      sistólica y diastólica.
+                      <a href="https://www.frontiersin.org/articles/10.3389/fmed.2017.00231/full" target="_blank">(Meidert A., 2018)</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>  
+          <div id="modalHipo" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 140px;"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        padding-top: 20px;
+                        padding-left: 30px;
+                        padding-right: 30px;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      <h2>Hipotensión Severa</h2>
+                      La presión arterial baja o hipotensión ocurre cuando la presión arterial durante y
+                      después de cada latido cardiaco es mucho más baja de lo usual, lo cual significa que
+                      el corazón, el cerebro y otras partes del cuerpo reciben menor cantidad de sangre.
+                      Una caida mayor o igual a 20 mmHg puede ocasionar problemas para algunas personas.
+                      La hipotensión puede ser causada por otros el uso de determinados medicamentos, o estar
+                      relacionados con problemas cardiacos, diabetes, deshidratación, entre otras.
+                      Existen 3 tipos principales de hipotensión:
+                    </div>
+                  </div>
+                    <div style="display: flex">
+                      <div                       
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        padding-bottom: 40px;
+                        padding-left: 30px;
+                        padding-right: 30px;
+                        width: 60%;
+                      ">
+                        Hipotensión ortostática: producida por un cambio súbito en la posición del
+                        cuerpo, generalmente al pasar de estar acostado a estar parado y usualmente dura
+                        solo unos pocos segundos o minutos
+                        <br></br>
+                        Hipotensión mediada neuralmente: ocurre cuando una persona ha estado de pie por
+                        mucho tiempo
+                        <br></br>
+                        Hipotensión grave producida por una perdida súbita de sangre (shock),
+                        infección o reacción alérgica.
+                      </div>
+                      <div style="display: inline-block; vertical-align: top">
+                        <img
+                          src="{% static 'simulators/hipotension_severa.JPG' %}"
+                          style="width: 90%; height: auto; max-width: 100%"
+                        />
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>     
+          <div id="modalHipoMo" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 140px;"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        padding-top: 20px;
+                        padding-left: 30px;
+                        padding-right: 30px;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      <h2>Hipotensión</h2>
+                      La presión arterial baja o hipotensión ocurre cuando la presión arterial durante y
+                      después de cada latido cardiaco es mucho más baja de lo usual, lo cual significa que
+                      el corazón, el cerebro y otras partes del cuerpo reciben menor cantidad de sangre.
+                      Una caida mayor o igual a 20 mmHg puede ocasionar problemas para algunas personas.
+                      La hipotensión puede ser causada por otros el uso de determinados medicamentos, o estar
+                      relacionados con problemas cardiacos, diabetes, deshidratación, entre otras.
+                      Existen 3 tipos principales de hipotensión:
+                    </div>
+                  </div>
+                    <div style="display: flex">
+                      <div                       
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        padding-bottom: 40px;
+                        padding-left: 30px;
+                        padding-right: 30px;
+                        width: 60%;
+                      ">
+                        Hipotensión ortostática: producida por un cambio súbito en la posición del
+                        cuerpo, generalmente al pasar de estar acostado a estar parado y usualmente dura
+                        solo unos pocos segundos o minutos
+                        <br></br>
+                        Hipotensión mediada neuralmente: ocurre cuando una persona ha estado de pie por
+                        mucho tiempo
+                        <br></br>
+                        Hipotensión grave producida por una perdida súbita de sangre (shock),
+                        infección o reacción alérgica.
+                      </div>
+                      <div style="display: inline-block; vertical-align: top">
+                        <img
+                          src="{% static 'simulators/hipotension_moderada.JPG' %}"
+                          style="width: 90%; height: auto; max-width: 100%"
+                        />
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>     
+          <div id="modalHiperLi" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex; align-items: center;">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 140px;"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        width: 50%;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      <h2>Hipertensión Ligera</h2>
+                      La hipertensión ligera se caracteriza por presentar presión sistólica entre 140 y 159 mmHg,
+                      y presión diastólica entre 90 y 99 mmHg. Es normal que la tensión arterial se encuentre en
+                      estos rangos cuando realizamos ejercicio, además el consumo de determinados alimentos puede
+                      contribuir al aumento de la tensión arterial.
+                      <a href="https://scielo.isciii.es/scielo.php?script=sci_arttext&pid=S1695-61412009000100012" target="_blank">(Valero A., 2009)</a>
+                    </div>
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/hipertension_ligera.JPG' %}"
+                        style="width: 90%; height: auto; max-width: 100%"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>     
+          <div id="modalHiperMo" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex; align-items: center;">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 140px;"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        width: 50%;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      <h2>Hipertensión Moderada</h2>
+                      La hipertensión ligera se caracteriza por presentar presión sistólica entre 160 y 179 mmHg,
+                      y presión diastólica entre 100 y 109 mmHg. Aumenta riesgo de padecer enfermedades cardiovasculares
+                      y cerebrales.
+                      <a href="https://scielo.isciii.es/scielo.php?script=sci_arttext&pid=S1695-61412009000100012" target="_blank">(Valero A., 2009)</a>
+                    </div>
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/hipertension_moderada.JPG' %}"
+                        style="width: 90%; height: auto; max-width: 100%"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>     
+          <div id="modalHiperSe" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex; align-items: center;">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 140px;"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        width: 50%;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      <h2>Hipertensión Severa</h2>
+                      La hipertensión ligera se caracteriza por presentar presión sistólica entre 180 y 209 mmHg,
+                      y presión diastólica entre 110 y 119 mmHg. Aumenta riesgo de padecer enfermedades cardiovasculares
+                      y cerebrales. Es la primera causa etiopatogénica para inducir dos procesos de curso clínico muy grave;
+                      la cardiopatía isquémica y la insuficiencia cardíaca congestiva, sin olvidar otras severas
+                      complicaciones como la enfermedad cerebrovascular, la arteriosclerosis de grandes arterias y la
+                      nefroangiosclerosis, conducente a la insuficiencia renal crónica, progresiva e irreversible.
+                      <a href="https://scielo.isciii.es/scielo.php?script=sci_arttext&pid=S1695-61412009000100012" target="_blank">(Valero A., 2009)</a>
+                    </div>
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/hipertension_severa.JPG' %}"
+                        style="width: 90%; height: auto; max-width: 100%"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>     
+          <div id="modalHiperSa" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex; align-items: center;">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 140px;"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        width: 50%;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      <h2>Hipertensión Sistólica Aislada</h2>
+                      La hipertensión ligera se caracteriza por presentar presión sistólica mayor a 140 mmHg,
+                      y presión diastólica normal, menor a 90 mmHg. Puede ser causada por rigidez en las arterias,
+                      por este motivo es más frecuente en personas mayores por la perdida de elasticidad en las arterias.
+                      También puede estar relacionada con hipotiroidismo, diabetes, problemas de válvulas cardiacas y obesidad.
+                      <a href="https://www.mayoclinic.org/es-es/diseases-conditions/high-blood-pressure/expert-answers/hypertension/faq-20058527" target="_blank">(Sheldon G., 2009)</a>
+                    </div>
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/hipertension_sistolica_aislada.JPG' %}"
+                        style="width: 90%; height: auto; max-width: 100%"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>     
+          <div
+            style="
+              font-family: LT-Emphasis;
+              text-align: center;
+              width: 100%;
+              max-width: 780px;
+              background-color: #000000;
+              border-color: lightgray;
+              height: 100%;
+              border-radius: 12px 12px 12px 12px;
+              border-style: inset;
+              border-width: 7px;
+            "
+          >
+            <!-- Valores que se muestran en el monitor del simulador -->
+            <div style="display: inline-block; padding: 5px; color: #ffffff">
+              Sistólica: {{ s }}
+            </div>
+            <div style="display: inline-block; padding: 5px; color: #ffffff">
+              Media: {{ m }}
+            </div>
+            <div style="display: inline-block; padding: 5px; color: #ffffff">
+              Diastólica: {{ d }}
+            </div>
+            <div style="display: inline-block; padding: 5px; color: #ffffff">
+              Frecuencia Cardíaca: {{ f }}
+            </div>
+            <!-- Lienzos donde se dibujan las gráficas en el monitor -->
+            <canvas
+              id="myChart"
+              height="115"
+            ></canvas>
+            <canvas
+              id="myChart2"
+              height="70"
+            ></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Ventana modal de espera que se muestra mientras el algoritmo del simulador trabaja y se recarga la página con los resultados -->
+    <div id="modal3" class="modal">
+      <div class="modal-content3">
+        <h2>Procesando...</h2>
+      </div>
+    </div>
+    <script>
+      function changeP() {
+        let ps = document.getElementById("ps")
+        let pd = document.getElementById("pd")
+        document.getElementById('default').selectedIndex=0;
+        document.getElementById('defaultPD').selectedIndex=0;
+        document.getElementById('defaultPS').selectedIndex=0;
+        if (pd >= ps && ps.value > 59) {
+          pd.max = ps.value - 1;
+        }
+      }  
+      document.getElementById("default").selectedIndex = {{ selected_idx }}
+      if (window.innerWidth < 600) {
+        document.getElementById("myChart").height = "220";
+        document.getElementById("myChart2").height = "150";
+      }
+      function changeModal(doctor) {
+        let tipo = document.getElementById('default').value
+        let ritmoValues = [
+          {
+            value: "aa",
+            idModal: "#modal2"
+          },
+          {
+            value: "a",
+            idModal: "#modalHipo"
+          },
+          {
+            value: "b",
+            idModal: "#modalHipoMo"
+          },
+          {
+            value: "c",
+            idModal: "#modal2"
+          },
+          {
+            value: "d",
+            idModal: "#modal2"
+          },
+          {
+            value: "e",
+            idModal: "#modalHiperLi"
+          },
+          {
+            value: "f",
+            idModal: "#modalHiperMo"
+          },
+          {
+            value: "g",
+            idModal: "#modalHiperSe"
+          },
+          {
+            value: "h",
+            idModal: "#modalHiperSa"
+          }
+        ]
+        ritmoValues.forEach(ritmo => {
+          if (ritmo.value === tipo) {
+            document.getElementById(doctor).href = ritmo.idModal;
+          }
+        })
+      }
+      /*Función que activa los inputs en anomalías antes de hacer el submit*/
+      function activeInputs() {
+        document.getElementById("ps").disabled = false;
+        document.getElementById("pd").disabled = false;
+      }
+      /* Función que envía ruido y activa ventana de carga solo cuando hay un submit */
+      function activeCharge() {
+        let pd = document.getElementById("pd")
+        let ps = document.getElementById("ps")
+
+        let noise = [{
+            check: document.getElementById('checkNoise').checked,
+            value: 0.1,
+            amp: document.getElementById('ampNoise').value
+          },]
+
+        let jsonNoise = JSON.stringify(noise);
+        document.getElementById('default').value
+        document.getElementById('hiddenField').value = JSON.stringify(noise);
+        document.getElementById('modal3').style.opacity = 1;
+      }
+
+      /* Función que permite visualizar menú de opciones de ruido */
+      function activeNoise() {
+        let divNoise = document.getElementById("noiseDropdown")
+        let okFlag = 1;
+        if (divNoise.classList.contains("show")) {
+          let childs = document.getElementById("noiseList").childNodes;
+          childs.forEach(li => {
+            let childsLi = li.childNodes;
+            childsLi.forEach(input => {
+              if (input.tagName === 'INPUT' && input.type === "number") {
+                if ((input.value < 0 || input.value > 1000) && input.value !== '') {
+                  okFlag = 0;
+                  document.getElementById('simulateButton').click();
+                }
+              }
+            });
+          });
+          if (okFlag === 1) {
+            divNoise.classList.toggle("show");
+          }
+        } else {
+          divNoise.classList.toggle("show");
+        }
+      }
+      function abledNoise(ampInputname, checkId) {
+        if (document.getElementById(checkId).checked == true) {
+          document.getElementById(ampInputname).disabled = false;
+          document.getElementById(ampInputname).value = '1000';
+        } else {
+          document.getElementById(ampInputname).disabled = true;
+          document.getElementById(ampInputname).value = '';
+        }
+      }
+
+      let data = "{{ dataset }}";
+      function downloadCsv() {
+        let hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:attachment/text,' + encodeURI(data);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'dataset_nibp.csv';
+        hiddenElement.click();
+        document.body.removeChild(hiddenElement);
+      }
+      if (data.length > 0) {
+        document.getElementById('descargar').disabled = false;
+      }
+
+      /* Se llaman las cajas de texto de la presión sistólica, diastólica
+            y frecuencia cardíaca */
+      var ps = document.getElementById("ps");
+      var pd = document.getElementById("pd");
+      var fc = document.getElementById("fc");
+      /* Función que cambia los valores de las cajas de texto anteriores al seleccionar valores predeterminados de la lista desplegable */
+      function optionDefault() {
+        var option = document.getElementById("default").value;
+        fc.value = 72;
+        if (option == "a") {
+          ps.value = 60;
+          pd.value = 30;
+        }
+        if (option == "b") {
+          ps.value = 80;
+          pd.value = 48;
+        }
+        if (option == "c") {
+          ps.value = 100;
+          pd.value = 65;
+        }
+        if (option == "d") {
+          ps.value = 120;
+          pd.value = 80;
+        }
+        if (option == "e") {
+          ps.value = 150;
+          pd.value = 95;
+        }
+        if (option == "f") {
+          ps.value = 170;
+          pd.value = 105;
+        }
+        if (option == "g") {
+          ps.value = 200;
+          pd.value = 140;
+        }
+        if (option == "h") {
+          ps.value = 150;
+          pd.value = 85;
+        }
+        let tipo = document.getElementById("default").value;
+        if (tipo !== "aa") {
+          document.getElementById('ps').disabled = true;
+          document.getElementById('pd').disabled = true;
+          document.getElementById('defaultPS').disabled = true;
+          document.getElementById('defaultPD').disabled = true;
+        }
+        else {
+          document.getElementById('ps').disabled = false;
+          document.getElementById('pd').disabled = false;
+          document.getElementById('defaultPS').disabled = false;
+          document.getElementById('defaultPD').disabled = false;
+        }
+        document.getElementById('defaultPS').selectedIndex = 0;
+        document.getElementById('defaultPD').selectedIndex = 0;
+        document.getElementById('defaultFC').selectedIndex = 0;
+      }
+      /* Función que cambia los valores de las cajas de textos de ps, pd y fc, al seleccionarlos de las listas desplegables continuas a cada una */
+      function default2(type) {
+        var selector = document.getElementById(type);
+        if (type == 'defaultPS') {
+          ps.value = selector.value;
+          selector.selectedIndex = 0;
+          document.getElementById('default').selectedIndex = 0;
+        }
+        if (type == 'defaultPD') {
+          pd.value = selector.value;
+          selector.selectedIndex = 0;
+          document.getElementById('default').selectedIndex = 0;
+        }
+        if (type == 'defaultFC') {
+          fc.value = selector.value;
+          selector.selectedIndex = 0;
+        }
+        changeP();
+      }
+      /* Código JavaScript de las gráficas generadas por el simulador utilizando la librería chart.js */
+      var ctx = document.getElementById('myChart');
+      var ctx2 = document.getElementById('myChart2');
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: {{ x }},
+          datasets: [
+            {
+              label: '',
+              data: {{ a_idx_m }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "yellow",
+              lineTension: 0,
+              borderWidth: 2,
+              showLine: false,
+              borderDash: [3, 5]
+            }, {
+              label: '',
+              data: {{ a_idx_d }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "yellow",
+              lineTension: 0,
+              steppedLine: true,
+              borderWidth: 2,
+              showLine: false,
+              borderDash: [3, 5]
+            }, {
+              label: '',
+              data: {{ a_idx_s }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "yellow",
+              lineTension: 0,
+              steppedLine: true,
+              borderWidth: 2,
+              showLine: false,
+              borderDash: [3, 5]
+            }, {
+              label: 'Presión total de brazalete',
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#2bff00",
+              lineTension: 0,
+            }
+          ]
+        },
+        options: {
+          tooltips: {
+            backgroundColor: 'rgba(254, 0, 0, 1)',
+            position: "average",
+            intersect: false,
+            mode: "nearest",
+            filter: function (tooltipItem, data) {
+              let label = data.labels[tooltipItem.index];
+              return parseFloat(label) == 9.9 ? true : false;
+            },
+          },
+          legend: {
+            labels: {
+              fontColor: "#fff",
+              fontSize: 14,
+              filter: function (item, myChart) {
+                return item.text !== '' ? true : false;
+              }
+            }
+          },
+          scales: {         
+            yAxes: [
+              { 
+                ticks: {
+                  max: Math.max(...{{ y1 }}),
+                  min: 0,
+                  steps: 8,
+                  beginAtZero: true,
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'mmHg'
+                }
+              }
+            ],
+            xAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: "Tiempo (s)"
+                },              
+              }
+            ]
+          }
+        }
+      });
+      var myChart2 = new Chart(ctx2, {
+        type: 'line',
+        data: {
+          labels: {{ x }},
+          datasets: [
+            {
+              label: 'Presión del pulso',
+              data: [0],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#ff0000",
+              lineTension: 0
+            }, {
+              label: '',
+              data: {{ y2_s }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "yellow",
+              lineTension: 0,
+              steppedLine: true,
+              borderWidth: 1,
+              showLine: false,
+              borderDash: [3, 5]
+            }, {
+              label: '',
+              data: {{ y2_m }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "yellow",
+              lineTension: 0,
+              steppedLine: true,
+              borderWidth: 1,
+              showLine: false,
+              borderDash: [3, 5]
+            }, {
+              label: '',
+              data: {{ y2_d }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "yellow",
+              lineTension: 0,
+              steppedLine: true,
+              borderWidth: 1,
+              showLine: false,
+              borderDash: [3, 5]
+            }
+          ]
+        },
+        options: {
+          legend: {
+            labels: {
+              fontColor: "#fff",
+              fontSize: 14,
+              filter: function (item, myChart) {
+                return item.text !== '' ? true : false;
+              }
+            }
+          },
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                  steps: 8,
+                  // max: Math.max.apply(null, {{ y2 }})
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'mmHg'
+                }
+              }
+            ],
+            xAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: "Tiempo (s)"
+                }
+              }
+            ]
+          }
+        }
+      });
+      /* Función que grafica dinámicamente (animación) los resultados del algoritmo del simulador */
+      function interval() {
+        let i = 0;
+        newData = {{ y1 }};
+        let tipo = document.getElementById("default").value
+        setInterval(function () {
+          if (i < {{ x }}.length) {
+            myChart.data.datasets.forEach((dataset) => {
+              dataset.data.push({{ y1 }}[i])
+            });
+            myChart2.data.datasets.forEach((dataset) => {
+              dataset.data.push({{ y2 }}[i])
+            });
+            myChart.update();
+            myChart2.update();
+            i++
+            if (tipo !== 'aa' && i === {{ x }}.length) {
+              document.getElementById('doctorLink').click();
+            }
+          }
+          if (i == {{ x }}.length) {
+            myChart.data.datasets[0].showLine = true;
+            myChart2.data.datasets[1].showLine = true;
+            myChart.data.datasets[1].showLine = true;
+            myChart2.data.datasets[2].showLine = true;
+            myChart.data.datasets[2].showLine = true;
+            myChart2.data.datasets[3].showLine = true;
+            myChart.update();
+            myChart2.update();
+            ctx.classList.add("active_pointer");
+          }
+        }, 50);
+      }
+      {{ animation }}
+
+    </script>
+  </body>
+</html>

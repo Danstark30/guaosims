@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Circuitos Biomédicos</title>
+    <link rel="stylesheet" href="{% static 'css/circuits.css' %}" />
+    <script
+      src="https://kit.fontawesome.com/a98919fe7f.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <header>
+      <p class="logo"><a href="{% url 'index' %}">Inicio</a></p>
+    </header>
+
+    <div class="lab">
+      <div class="module">
+        <h2>Simuladores abiertos</h2>
+      </div>
+    </div>
+
+    <div class="intro">
+      <h3>Simulación de Circuitos Biomédicos</h3>
+      <div class="row">
+        <p>
+          En está sección encontrarás guías y material para construir
+          tus propios simuladores de equipos biomédicos utilizando distintas
+          plataformas como Raspberry Pi o Proteus Circuit Simulator. Cada circuito
+          está acompañado por videos y otros archivos instructivos, y podrás solicitar
+          códigos y esquemáticos relacionados.
+        </p>
+      </div>
+      <div class="row">
+        <p>
+          Para mejorar la experiencia educativa de estudiantes de ingeniería
+          biomédica, se han organizado actividades en que los estudiantes de 
+          cursos de la línea de Bioinstrumentación han seguido las prácticas 
+          propuestas con los simuladores físicos de Electrocardiografía, Presión 
+          Arterial y Pulsoximetría, interconectándolos con el monitor de signos
+           vitales, resolviendo tests cortos y proponiendo posibles mejoras. 
+           Así mismo, don el fin de evaluar si los simuladores pueden ser fácilmente 
+           construidos por los propios estudiantes, se organizó un proyecto opcional 
+           de curso en que los estudiantes replicaban el simulador basándose en las
+            guías de diseño y construcción, así como los planos, esquemas eléctricos 
+            y códigos del software. Finalmente, se han llevado a cabo sesiones online 
+            de prácticas para estudiantes de Bioinstrumentación 2 en que llevan a
+             cabo las actividades propuestas en nuestra <a href="http://uaosims.uao.edu.co" target="_blank">página</a>
+             que se construyó para integrar varios de los simuladores desarrollados
+        </p>
+      </div>
+    </div>
+
+    <div class="module2" id="cards">
+      <div class="card">
+        <img
+          class="img_card"
+          src={% static 'simulators/ecg_origin.JPG' %}
+        />
+        <h4><b>Electrocardiografía</b></h4>
+        <p>
+          Este proyecto genera la señal de ECG
+          para cada uno de los electrodos, utilizando las series de fourier.
+          Un circuito convierte estas señales digitales
+          a análogas, por lo cual pueden ser captadas por los electrodos de un
+          electrocardiógrafo. 
+        </p>
+        <div class="box-bottom">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfpeW9pzFngtIPjTJNUxKDLB2KtY1BD6ztK-QUKMXIDwLBUxg/viewform" target="_blank">
+            <i class="fas fa-envelope-open-text"></i
+          ></a>
+          <a href="{% static 'files/ecg.pdf' %}" download>
+            <i class="fas fa-cloud-download-alt"></i></a>
+        </div>
+      </div>
+      <div class="card">
+        <img
+          class="img_card"
+          src={% static 'simulators/nibp_origin.png' %}
+        />
+        <h4><b>Presión Arterial no Invasiva</b></h4>
+        <p>
+          Este proyecto consiste en un circuito que sensa la presión en el brazalete,
+          y genera pulsos de presión de manera controlada, mediante
+          el uso de un circuito neumático (cámara de
+          presión y parlante)
+        </p>
+        <div class="box-bottom">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfpeW9pzFngtIPjTJNUxKDLB2KtY1BD6ztK-QUKMXIDwLBUxg/viewform" target="_blank">
+            <i class="fas fa-envelope-open-text"></i
+          ></a>
+          <a href="{% static 'files/nibp.pdf' %}" download>
+            <i class="fas fa-cloud-download-alt"></i></a>
+        </div>
+      </div>
+      <div class="card">
+        <img
+          class="img_card"
+          src={% static 'simulators/spo2_origin.JPG' %}
+        />
+        <h4><b>Saturación Parcial de Óxigeno</b></h4>
+        <p>
+          Este proyecto genera las señales de los sensores led rojo
+          e infrarrojo, las cuales son adaptadas para ser medidas
+          por el módulo de SpO2 del monitor de signos vitales.
+        </p>
+        <div class="box-bottom">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfpeW9pzFngtIPjTJNUxKDLB2KtY1BD6ztK-QUKMXIDwLBUxg/viewform" target="_blank">
+            <i class="fas fa-envelope-open-text"></i
+          ></a>
+          <a href="{% static 'files/spo2.pdf' %}" download>
+            <i class="fas fa-cloud-download-alt"></i></a>
+        </div>
+      </div>
+      <div class="card">
+        <img
+          class="img_card"
+          src={% static 'simulators/desfi.JPG' %}
+        />
+        <h4><b>Analizador de desfibrilador</b></h4>
+        <p>
+          Un sistema analizador de desfibrilación con capacidad
+          de simular arritmias cardiacas. Embebido en un maniquí
+          antropomórfico.
+        </p>
+        <div class="box-bottom">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfpeW9pzFngtIPjTJNUxKDLB2KtY1BD6ztK-QUKMXIDwLBUxg/viewform" target="_blank">
+            <i class="fas fa-envelope-open-text"></i
+          ></a>
+          <a href="{% static 'files/desfibrilador.pdf' %}" download>
+            <i class="fas fa-cloud-download-alt"></i></a>
+        </div>
+      </div>
+      <div class="card">
+        <iframe
+          width="100%"
+          height="50%"
+          src="https://www.youtube.com/embed/wpru_kXcoTc"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+        <h4><b>Electrocardiógrafo</b></h4>
+        <p>
+          Este circuito permite simular las funciones básicas de un
+          electrocardiógrafo. Se usa como señal de entrada los datos generados
+          por el simulador UAOSIMS ECG. En él podemos observar el funcionamiento
+          de las etapas de acondicionamiento, filtrado y digitalización
+        </p>
+        <div class="box-bottom">
+          <a href="https://github.com/uaosims/circuits_sim_ecg" target="_blank">
+            <i class="fas fa-cloud-download-alt"></i>
+          </a>
+        </div>
+      </div>
+      <div class="card">
+        <iframe
+          width="100%"
+          height="50%"
+          src="https://www.youtube.com/embed/rTN7EalBZwU"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+        <h4><b>Incubadora</b></h4>
+        <p>
+          Este circuito permite simular las funciones básicas de una incubadora
+          neonatal, realizando mediciones de temperatura, humedad, peso y
+          concentración de oxígeno, y controlando la temperatura.
+        </p>
+        <div class="box-bottom">
+          <a href="https://github.com/uaosims/circuits_sim_incubator" target="_blank">
+            <i class="fas fa-cloud-download-alt"></i>
+          </a>
+        </div>
+      </div>
+      <div class="card">
+        <iframe
+          width="100%"
+          height="50%"
+          src="https://www.youtube.com/embed/UJvFhu_BS48"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+        <h4><b>Analizador de Incubadora</b></h4>
+        <p>
+          Este circuito permite simular las funciones básicas de un analizador
+          de incubadora neonatal, realizando mediciones de temperatura, humedad,
+          peso y concentración de oxígeno.
+        </p>
+        <div class="box-bottom">
+          <a href="https://github.com/uaosims/circuits_sim_incubator_analyzer" target="_blank">
+            <i class="fas fa-cloud-download-alt"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+    <h2 class="other">OTROS PROYECTOS</h2>
+    <div class="module2" id="other_cards">
+      <div class="card">
+        <img
+          class="img_card"
+          src={% static 'simulators/exp_gen.jpeg' %}
+        />
+        <h4><b>Expresión Génica de Poblaciones Celulares</b></h4>
+        <p>
+          Este proyecto constituye el desarrollo de una herramienta
+          de software libre para el modelado de la expresión
+          génica de poblaciones celulares.
+        </p>
+        <div class="box-bottom">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfpeW9pzFngtIPjTJNUxKDLB2KtY1BD6ztK-QUKMXIDwLBUxg/viewform" target="_blank">
+            <i class="fas fa-envelope-open-text"></i
+          ></a>
+          <a href="{% static 'files/exp_genica.pdf' %}" download>
+            <i class="fas fa-cloud-download-alt"></i></a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

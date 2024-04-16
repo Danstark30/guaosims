@@ -1,0 +1,1883 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ECG | Simulators</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/a98919fe7f.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="{% static 'css/ecg.css' %}" />
+  </head>
+  <body style="text-align: center; margin-top: 50px; background-color: gray">
+    <div id="fondo">
+      <div
+        style="position: relative; width: 100%; height: 100%; margin-top: 20px"
+      >
+        <div style="display: inline-block; vertical-align: top">
+          <div style="text-align: left">
+            <!-- Hipervínculo con el botón para ir a la página de inicio -->
+            <a href="{% url 'index' %}">
+              <button style="margin-left: 15px">
+                <i class="fa fa-home"></i> Inicio
+              </button>
+            </a>
+          </div>
+          <br />
+          <div
+            style="
+              border-radius: 12px;
+              vertical-align: top;
+              padding: 40px;
+              margin-left: 10px;
+              margin-right: 10px;
+              margin-bottom: 20px;
+              color: #ffffff;
+              background-color: #344439;
+              width: 95%;
+              max-width: 300px;
+              display: inline-block;
+            "
+          >
+            <!-- Hipervínculo con la imagen de la ingeniera para abrir la ventana modal -->
+            <a href="#modal">
+              <img
+                src="{% static 'simulators/ingeniera-mitad.png' %}"
+                style="margin-top: -20px; margin-left: 250px; width: 50px"
+              />
+            </a>
+            <!-- Ventana modal con las instrucciones de uso del simulador -->
+            <div id="modal" class="modal">
+              <div
+                class="modal-content"
+                style="font-family: aeromatics; border-radius: 20px; overflow: auto; max-height: 500px;"
+              >
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"
+                ><i
+                  class="fas fa-times-circle"
+                  style="color: black; font-size: 26px; position:absolute; right: 10px; top:20px"
+                ></i
+                ></a>
+
+                <div style="display: flex; justify-content: space-around; padding: 20px">
+                  <img
+                    src="{% static 'simulators/ingeniera-completa.png'  %}"
+                    style="
+                      max-width: 250px;
+                      -webkit-transform: scaleX(-1);
+                      transform: scaleX(-1);
+                      padding-top: 15px;
+                    "
+                  />
+                  <div style="padding:20px;">
+                    <div style="display: flex; margin-bottom: 0; flex-wrap: nowrap;">
+                      <h2 style="padding: 0 20px; margin:0">
+                        Bienvenido al simulador de electrocardiografía
+                      </h2>
+                    </div>
+                    <div style="display: flex; justify-content: center; flex-direction: column;">
+                      <h3>UAOSIMS ECG</h2>
+                      <p>
+                        En esta guía aprenderás las diferentes funciones del
+                        simulador y cómo pueden ayudarte a entender más acerca
+                        de las señales electrocardiográficas (ECG). Recuerda que
+                        al actualizar los parámetros de simulación debes siempre
+                        presionar el botón <span style="border-radius: 8px;
+                        background-color: #e8c76a;
+                        padding: 0 5px">Simular</span> para visualizar los cambios
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/ecg1.JPG'  %}"
+                  />
+                  <p>La primera casilla de selección te permite seleccionar el tipo de ritmo a simular. Un ritmo normal es llamado “Ritmo Sinusal”, pero también existen otros tipos de ritmos llamados “Arritmias” las cuales ocurren por la presencia de diferentes patologías en el corazón. </p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <p>Actividad: Prueba simular las diferentes arritmias y observa qué cambios tienen en sus características: ¿Cómo es el intervalo entre latidos? ¿Qué segmentos de la onda cambian?</p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/ecg2.JPG'  %}"
+                  />
+                  <p>Si has elegido el ritmo sinusal, la segunda casilla de selección te permitirá elegir entre varios valores predeterminados de Frecuencia Cardíaca (FC), expresados en latidos por minuto (lpm). Adicionalmente, puedes seleccionar cualquier valor entero de FC (en un rango de 40 a 200) digitándolo en la casilla de texto del lado derecho. La FC es un valor que cambia constantemente en nuestros cuerpos, dependiendo de la actividad que estemos realizando, nuestro estado emocional o nuestra condición física.</p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <p>Actividad: Prueba a simular valores muy bajos o altos de FC ¿Qué cambios observas en la forma de la onda?</p></div>
+                
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/ecg3.JPG'  %}"
+                  />
+                  <div style="display: flex; flex-direction: column;">
+                    <p>La tercera casilla de selección te permitirá elegir entre varios valores predeterminados de Amplitud, expresados en milivoltios (mV). Adicionalmente, puedes seleccionar cualquier valor de amplitud (en un rango de 0 a 10) digitándolo en la casilla de texto del lado derecho. La amplitud del ECG es una magnitud que depende de las características eléctricas del corazón del paciente, pero también del tipo de electrodos y su interfaz con la piel del paciente.</p>
+                    <p>Actividad: Prueba a simular valores de 0, 0.5 y 10mV ¿Qué cambios observas en la forma de la onda? </p>
+                  </div>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/ruidos.JPG'  %}"
+                  />
+                  <p>La cuarta casilla de selección te permitirá elegir uno o varios valores de Frecuencia de Ruido predeterminadas y uno personalizado, expresados en Hertz (Hz). Para que la frecuencia se active debes marcar la casilla de selección (checkbox) que está al lado izquierdo de cada frecuencia. Adicionalmente, puedes seleccionar cualquier valor de frecuencia de ruido(en un rango de 0 a 125) digitándolo en la casilla de texto de la última fila "Otro (Hz)". Además puedes seleccionar la amplitud de cada ruido, siendo un porcentaje de la señal inicial. El ruido que aparece en las señales de ECG puede venir de muchas fuentes. La más común es la interferencia electromagnética de la red eléctrica, que genera ruido en frecuencias de 50 o 60Hz, pero también están los ruidos de baja frecuencia generados por el movimiento del paciente o de los electrodos, o los de frecuencia “media” generados por actividad muscular. 
+                  </p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <p>Actividad: Prueba a simular valores de ruido de 0 Hz, 5 Hz y 100 Hz ¿Qué cambios observas en la forma de la onda? ¿Es igual el efecto del ruido si aumentamos la amplitud de la onda?</p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/ecg5.JPG'  %}"
+                  />
+                  <p>La quinta casilla de selección te permitirá elegir entre observar la señal en el dominio del tiempo o en el dominio de la frecuencia, por medio de la transformada de Fourier. En un electrocardiógrafo real siempre observamos la señal en el dominio del tiempo, pero es interesante recordar que estas señales siempre tienen un equivalente en el dominio de la frecuencia y que en este dominio podemos entender con mayor claridad la contribución de las distintas ondas que componen la señal, y la forma en que el ruido entra a hacer parte de estos componentes.</p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <p>Actividad: Prueba a simular valores de ruido de 0Hz, 5 Hz y 100 Hz y observa la señal en el dominio de frecuencia ¿Qué cambios observas? ¿Es igual el efecto del ruido si aumentamos la amplitud de la onda?</p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/ecg6.JPG'  %}"
+                  />
+                  <p>La sexta casilla de selección te permitirá elegir entre varios valores predeterminados de la ventana de tiempo a observar. Los cambios que aparecen en la señal debido a los parámetros usados (tipo de ritmo, FC, amplitud, ruido) pueden observarse de diferente manera dependiendo de la ventana de tiempo que observemos. Algunos serán perceptibles solo en ventanas de tiempo cortas, mientras otros se observarán bien solo en ventanas prolongadas.
+                  </p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <p>Actividad: Prueba a simular valores de 0 Hz, 25 Hz y 100 Hz a una amplitud de 1mV y observa la señal en el dominio del tiempo ¿En qué ventanas de tiempo se observan mejor?</p>
+                </div>
+              
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/ecg7.JPG'  %}"
+                  style="
+                    max-width: 250px;
+                    height: auto;
+                    padding: 15px;
+                  "
+                  />
+                  <p>La séptima casilla de selección te permitirá elegir qué derivación del ECG visualizar. Un ECG completo tiene 12 derivaciones, pero el número de estas que se visualiza varía mucho entre los distintos tipos de técnicas que se basan en la señal electrocardiográfica. En este simulador se pueden observar las 12 derivaciones por separado, en cuatro grupos de tres simultáneas (bipolares, unipolares aumentadas, precordiales 1-3 y precordiales 4-6), para mayor facilidad al visualizarlas en pantallas pequeñas.</p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <p>Actividad: Prueba a hacer diversos cambios en los parámetros de las casillas anteriores y ver cómo afectan los distintos grupos de derivaciones.</p>
+                </div>
+                
+                
+              </div>
+            </div>
+            <form name="form" id="form" method="POST" onsubmit="activeCharge()">
+              {% csrf_token %}
+              <!-- Lista desplegable de tipos de señales a simular (Ritmo Sinusal o Arritmias) -->
+              <select name="clase" id="tipoRitmo" onchange="ableOptions(this.id)">
+                <option value="------">Tipo de ritmo</option>
+                <option value="------">
+                  --------------------------------------
+                </option>
+                <option {{ setnormal }} value="Normal">Ritmo Sinusal</option>
+                <option {{ setfiba }} value="Fibrilación auricular">
+                  Arritmia: Fibrilación Auricular
+                </option>
+                <option {{ setfibv }} value="Fibrilación ventricular">
+                  Arritmia: Fibrilación Ventricular
+                </option>
+                <option {{ setbe }} value="Bradicarida extrema">
+                  Arritmia: Bradicardia extrema
+                </option>
+                <option {{ sette }} value="Taquicardia extrema">
+                  Arritmia: Taquicardia extrema
+                </option>
+                <option {{ setflua }} value="Flúter auricular">
+                  Arritmia: Flúter auricular
+                </option>
+              </select>
+              <!-- Lista desplegable de valores predeterminados de Frecuencia Cardíaca -->
+              <div class="row">
+                <select
+                  id="defaultFrecuency"
+                  onchange="default2('defaultFrecuency')"
+                >
+                  <option>Frecuencia Cardíaca (lpm)</option>
+                  <option value="40">40 lpm</option>
+                  <option value="50">50 lpm</option>
+                  <option value="60">60 lpm</option>
+                  <option value="80">80 lpm</option>
+                  <option value="90">90 lpm</option>
+                  <option value="100">100 lpm</option>
+                  <option value="120">120 lpm</option>
+                  <option value="140">140 lpm</option>
+                  <option value="160">160 lpm</option>
+                  <option value="180">180 lpm</option>
+                  <option value="200">200 lpm</option>
+                </select>
+                <!-- Caja de texto para entrada manual de valores de Frecuancia Cardíaca -->
+                <input
+                  required
+                  id="bpm"
+                  name="bpm"
+                  type="number"
+                  placeholder="lpm"
+                  value="{{ setfc }}"
+                  min="40"
+                  max="200"
+                />
+              </div>
+              <!-- Lista desplegable de valores predeterminados de Amplitud -->
+              <div class="row">
+                <select id="default" onchange="optionDefault()">
+                  <option>Amplitud (mV)</option>
+                  <option value="a">0.05 mV</option>
+                  <option value="b">0.10 mV</option>
+                  <option value="c">0.15 mV</option>
+                  <option value="d">0.20 mV</option>
+                  <option value="e">0.25 mV</option>
+                  <option value="f">0.30 mV</option>
+                  <option value="g">0.35 mV</option>
+                  <option value="h">0.40 mV</option>
+                  <option value="i">0.45 mV</option>
+                  <option value="j">0.50 mV</option>
+                  <option value="k">1.0 mV</option>
+                  <option value="l">1.5 mV</option>
+                  <option value="m">2.0 mV</option>
+                  <option value="n">2.5 mV</option>
+                  <option value="o">3.0 mV</option>
+                  <option value="p">3.5 mV</option>
+                  <option value="q">4.0 mV</option>
+                  <option value="r">4.5 mV</option>
+                  <option value="s">5.0 mV</option>
+                </select>
+                <!-- Caja de texto para entrada manual de valores de Amplitud -->
+                <input
+                  required
+                  id="amplitud"
+                  name="amplitud"
+                  type="number"
+                  value="{{ setamp }}"
+                  step="any"
+                  placeholder="Amplitud"
+                  min="0"
+                  max="10"
+                />
+              </div>
+              <!-- Elementos ocultos para pasar algunos valores al backend -->
+              <input
+                hidden
+                checked
+                type="radio"
+                name="fourier"
+                value="fourier"
+              />
+              <input hidden type="radio" name="fourier" value="no fourier" />
+              <!-- Lista desplegable de tipo de gráfico a mostrar -->
+              <select name="setgraph" id="graphSelector" onchange="graphType()">
+                <option {{ setgraphtiempo }} value="ECG">
+                  ECG (en tiempo)
+                </option>
+                <option {{ setgraphfourier }} value="FOURIER">
+                  ECG (en frecuencia)
+                </option>
+              </select>
+              <!-- Lista desplegable de valores predeterminados de Tiempo Observado -->
+              <select name="tiempo" id="defaultTime">
+                <option value="5">Tiempo observado</option>
+                <option {{ set5 }} value="5">5s</option>
+                <option {{ set10 }} value="10">10s</option>
+                <option {{ set15 }} value="15">15s</option>
+                <option {{ set20 }} value="20">20s</option>
+                <option {{ set25 }} value="25">25s</option>
+                <option {{ set30 }} value="30">30s</option>
+                <option {{ set35 }} value="35">35s</option>
+                <option {{ set40 }} value="40">40s</option>
+                <option {{ set45 }} value="45">45s</option>
+                <option {{ set50 }} value="50">50s</option>
+              </select>
+              <!-- Lista desplegable de grupos de derivadas a mostrar -->
+              <select name="derivadas">
+                <option value="1">Derivadas</option>
+                <option {{ setderivadas1 }} value="1">I, II, III</option>
+                <option {{ setderivadas2 }} value="2">aVR, aVL, aVF</option>
+                <option {{ setderivadas3 }} value="3">V1, V2, V3</option>
+                <option {{ setderivadas4 }} value="4">V4, V5, V6</option>
+              </select>
+              <!-- Botón para enviar los datos y simular -->
+              <input type='hidden' id='hiddenField' name='noise' value=''/>
+              <div class="dropdown" name="noiseDiv">
+                <button
+                  id="ruido"
+                  class="btn"
+                  type="button"
+                  value="Descargar"
+                  onclick="activeNoise()"
+                >
+                  Ruido
+                </button>
+                <div
+                  class="noiseDropdown"
+                  id="noiseDropdown"
+                >
+                  <ul id="noiseList">
+                    <li>
+                      <input type="checkbox" onClick="abledNoise('amp60', this.id)" id="check60"></input>
+                      <label> 60 Hz (Red Eléctrica) </label>
+                      <input type="number" id="amp60" placeholder="(%)" min="0" max="1000" disabled>%</input>                      
+                    </li>
+                    <li>
+                      <input type="checkbox" onClick="abledNoise('amp50', this.id)" id="check50"></input>
+                      <label> 50 Hz (Red Eléctrica) </label>
+                      <input type="number" id="amp50" placeholder="(%)" min="0" max="1000" disabled>%</input>                      
+                    </li>
+                    <li>
+                      <input type="checkbox" onClick="abledNoise('amp35', this.id)" id="check35"></input>
+                      <label> 35 Hz (Ruido Muscular) </label>
+                      <input type="number" id="amp35" placeholder="(%)" min="0" max="1000" disabled>%</input>                      
+                    </li>
+                    <li>
+                      <input type="checkbox" onClick="abledNoise('amp025', this.id)" id="check025"></input>
+                      <label> 0.25 Hz (Respiración) </label>
+                      <input type="number" id="amp025" placeholder="(%)" min="0" max="1000" disabled>%</input>                      
+                    </li>
+                    <li>
+                      <input type="checkbox" onClick="abledNoise('amp001', this.id)" id="check001"></input>
+                      <label> 0.01 Hz (Movimiento) </label>
+                      <input type="number" id="amp001" placeholder="(%)" min="0" max="1000" disabled>%</input>                      
+                    </li>
+                    <li>
+                      <input type="checkbox" onClick="abledNoise('ampOther', this.id)" id="checkOther"></input>
+                      <input type="number" id="freqOther" step="0.01" placeholder="Otro (Hz)" min="0" max="125" disabled>Hz</input>                    
+                      <input type="number" id="ampOther" placeholder="(%)" min="0" max="1000" disabled>%</input>                      
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <input
+                id="simulateButton"
+                class="btn"
+                type="submit"
+                value="Simular"
+                onClick="activeType()"
+              />
+              <button
+                id="descargar"
+                class="btn"
+                type="button"
+                value="Descargar"
+                onclick="downloadCsv()"
+                disabled
+              >
+                Descargar
+              </button>
+            </form>
+          </div>
+        </div>
+        <div
+          style="
+            border-radius: 12px;
+            text-align: left;
+            border: #bdbdbd solid;
+            margin-left: 10px;
+            margin-right: 20px;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            vertical-align: middle;
+            width: 80%;
+            padding: 20px 30px 20px 20px;
+            max-width: 780px;
+            display: inline-block;
+          "
+        >
+          <div style="text-align: right">
+            <!-- Hipervínculo con la imagen del médico para abrir la ventana modal -->
+            <a href="#modal2" id="doctorLink" onclick="changeModal(this.id)">
+              <img
+                src="{% static 'simulators/doctor-mitad.png' %}"
+                style="display: inline-block; margin-top: -20px; width: 50px"
+              />
+            </a>
+          </div>
+          <!-- Ventana modal de Firbilación ventricular-->
+          <div id="modalFibriventricular" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico de arritmia</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 120px;"
+                      />
+                    </div>
+                    <div class="taqui">
+                      <h2>Fibrilación Ventricular</h2>
+                      El trazado ECG se caracteriza por una actividad cárdiaca sin patrones de complejos de onda
+                      evidentes, el bombeo del corazón se vuelve ineficaz y no bombea sangre. Es necesario aplicar
+                      resucitación cardiopulmonar y/o desfibrilación.
+                    </div>
+                  </div>
+                  <div style="display: inline-block; vertical-align: top">
+                    <img
+                      src="{% static 'simulators/ventricular_fibrillation.JPG' %}"
+                      style="width: 90%; height: auto; max-width: 100%"
+                    />
+                    Figura 1. Fibrilación Ventricular, (Thaler Malcolm S., 2019, The Only Book You'll Ever Need, 9° Edición)
+                  </div>
+                  <button class="moreInfor" onclick="moreInfo()">
+                    INFORMACIÓN GENERAL DEL ECG
+                  </button>            
+                </div>            
+              </div>            
+            </div>
+          </div>
+          <!-- Ventana modal de Firbilación Auricular-->
+          <div id="modalFibriauricular" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico de arritmia</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 120px;"
+                      />
+                    </div>
+                    <div class="taqui">
+                      <h2>Fibrilación Auricular</h2>
+                      Presenta una actividad auricular desorganizada a más de 400 lpm,
+                      con pérdida de la eficacia mecánica auricular. La onda P no se 
+                      identifica y la línea base presenta oscilaciones irregulares.
+                      Generando una frecuencia ventricular irregular, que oscila entre los 100 y 180 lpm.                      
+                    </div>
+                  </div>
+                  <div style="display: inline-block; vertical-align: top">
+                    <img
+                      src="{% static 'simulators/auri_fibri.JPG' %}"
+                      style="width: 90%; height: auto; max-width: 100%"
+                    />
+                    Figura 1. Fibrilación Auricular, (Thaler Malcolm S., 2019, The Only Book You'll Ever Need, 9° Edición)
+                  </div>
+                  <button class="moreInfor" onclick="moreInfo()">
+                    INFORMACIÓN GENERAL DEL ECG
+                  </button>            
+                </div>            
+              </div>            
+            </div>
+          </div>
+          <!-- Ventana modal de Taquicardia Extrema-->
+          <div id="modalTaquicardia" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico de arritmia</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 120px;"
+                      />
+                    </div>
+                    <div class="taqui">
+                      <h2>Taquicardia Extrema</h2>
+                      La taquicardia es caracterizada por una frecuencia cardiaca 
+                      mayor a 100 lpm, específicamente la extrema se encuentra
+                      alrededor de los 160 lpm. Las taquicardias no necesariamente están
+                      relacionadas con una patología, también puede ser una respuesta
+                      fisiológica a diferentes estímulos como el ejercicio, entre otros.
+                      Deberias encontrar algo similar a la siguiente imagen.
+                    </div>
+                  </div>
+                  <div style="display: inline-block; vertical-align: top">
+                    <img
+                      src="{% static 'simulators/taqui120.JPG' %}"
+                      style="width: 90%; height: auto; max-width: 100%"
+                    />
+                    Figura 1. Taquicardia 120 lpm, (Thaler Malcolm S., 2019, The Only Book You'll Ever Need, 9° Edición)
+                  </div>
+                  <button class="moreInfor" onclick="moreInfo()">
+                    INFORMACIÓN GENERAL DEL ECG
+                  </button>                                     
+                </div>            
+              </div>            
+            </div>
+          </div>
+          <!-- Ventana modal de Bradicardia Extrema-->
+          <div id="modalBradicardia" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico de arritmia</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 120px;"
+                      />
+                    </div>
+                    <div class="taqui">
+                      <h2>Bradicardia Extrema</h2>
+                      La bradicardia es caracterizada por una frecuencia cardiaca 
+                      menor a 60 lpm, específicamente la extrema se encuentra alrededor de los 45 lpm,
+                      puede representar un riesgo si el corazón no bombea suficiente 
+                      sangre rica en oxígeno al cuerpo.
+                      Deberias encontrar algo similar a la siguiente imagen.
+                    </div>
+                  </div>
+                  <div style="display: inline-block; vertical-align: top">
+                    <img
+                      src="{% static 'simulators/bradi45.JPG' %}"
+                      style="width: 90%; height: auto; max-width: 100%"
+                    />
+                    Figura 1. Bradicardia 45 lpm, (Thaler Malcolm S., 2019, The Only Book You'll Ever Need, 9° Edición)
+                  </div>    
+                  <button class="moreInfor" onclick="moreInfo()">
+                    INFORMACIÓN GENERAL DEL ECG
+                  </button>                                 
+                </div>            
+              </div>            
+            </div>
+          </div>
+          <!-- Ventana modal de Flúter Auricular -->
+          <div id="modalFlutter" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico de arritmia</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 120px;"
+                      />
+                    </div>
+                    <div class="taqui">
+                      <h2>Flutter Auricular</h2>
+                      Actividad auricular entre los 250 y 340 lpm, ECG característico
+                      como “Dientes de Sierra”. La respuesta ventricular es variable
+                      y  se encuentra alrededor de los 150 lpm.
+                      Deberias encontrar algo similar a la siguiente imagen.
+                    </div>
+                  </div>
+                  <div style="display: inline-block; vertical-align: top">
+                    <img
+                      src="{% static 'simulators/flutter.JPG' %}"
+                      style="width: 90%; height: auto; max-width: 100%"
+                    />
+                    Figura 1. Flutter Auricular, (Thaler Malcolm S., 2019, The Only Book You'll Ever Need, 9° Edición)
+                  </div>   
+                  <button class="moreInfor" onclick="moreInfo()">
+                    INFORMACIÓN GENERAL DEL ECG
+                  </button>                                  
+                </div>            
+              </div>            
+            </div>
+          </div>
+          <!-- Ventana modal información básica Doctor -->
+          <div id="modal2" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Bienvenido al electrocardiógrafo</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 120px;"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        padding-top: 20px;
+                        padding-left: 30px;
+                        padding-right: 30px;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      El electrocardiograma (ECG) es la representación visual de la
+                      actividad eléctrica del corazón en función del tiempo,
+                      obtenida desde la superficie corporal, en el pecho, con un
+                      electrocardiógrafo. Es el instrumento principal de la
+                      electrofisiología cardíaca y tiene una función relevante en el
+                      diagnóstico de las enfermedades cardiovasculares, alteraciones
+                      metabólicas y la predisposición a una muerte súbita cardíaca.
+                      <br></br>
+                      El electrocardiógrafo hace uso de 10 sensores llamados electrodos,
+                      indispensables para obtener un estudio completo, proporcionando
+                      la información suficiente para la visualización de las 12 derivaciones de ECG.
+                      Diferentes equipos biomédicos incluyen un módulo de electrocardiografía,
+                      como monitores de signos vitales o desfibriladores.
+                    </div>
+                  </div>
+                  <div style="display: flex">                 
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        width: 80%;
+                        padding-top: 20px;
+                        padding-left: 30px;
+                        padding-right: 30px;
+                      ">
+                      <br>
+                      La ubicación de los electrodos juega un papel importante en el ECG,
+                      un cambio pequeño en la localización podría generar variaciones en
+                      el complejo de ondas ECG, causando así un riesgo de error en el diagnóstico.
+                      Los electrodos periféricos (4) deben ir ubicados en las extremidades o lo más
+                      cercano a ellás en el torso y los electrodos precordiales (6) van colocados 
+                      en la región precordial.
+                      <br></br>
+                      Los electrodos son descritos en la siguiente tabla, incluyendo los dos códigos
+                      más usados de nomenclatura y colores, código de la American Heart Association
+                      (AHA) y por la International Electrotechnical Commission (IEC):                      
+                    </div>
+                    <div style="display: inline-block; vertical-align: top;">
+                      <img
+                        src="{% static 'simulators/electrodes.JPG' %}"
+                        style="width: 53%; height: auto; max-width: 100%"
+                      />
+                      <div style="text-align: justify; margin: 2px">
+                        Figura 1. Ubicación de electrodos, nomenclaruta AHA,
+                        <a href="http://www.siacardio.com/wp-content/uploads/2015/01/ECG-Capitulo-10-Errores-y-artefactos-comunes-en-ECG.pdf"
+                          target="_blank">
+                          (Garcia, 2015)
+                        </a>
+                      </div>
+                    </div>    
+                  </div>
+                  <div style="display: inline-block; vertical-align: top">
+                    <img
+                      src="{% static 'simulators/table.jpeg' %}"
+                      style="width: 90%; height: auto; max-width: 100%"
+                    />
+                    <div style="display: inline-block; vertical-align: top; text-align: justify; margin: 2px">
+                      Tabla 1. Descripción de electrodos, colores y nomenclarutas IEC y AHA
+                    </div>                    
+                  </div>                      
+                  <div
+                    style="
+                      display: inline-block;
+                      text-align: justify;
+                      padding-top: 20px;
+                      padding-left: 30px;
+                      padding-right: 30px;
+                    "
+                  >
+                    <!-- Espacio para comentarios sobre este simulador -->
+                    Las derivaciones electrocardiográficas son el resultado del
+                    diferencial de potencial entre dos puntos de medición.
+                    Los conjuntos de derivaciones se dividen en:
+                    <br></br>
+                  <div 
+                    style="display:flex;
+                          text-align: justify;
+                          justify-content: space-between;
+                          padding-top: 20px;
+                          padding-right: 30px;"
+                  >
+                    <div style="margin-right: 40px; width: 80%">                  
+                      Derivaciones bipolares: Son aquellas derivaciones que miden
+                      la diferencia de potencial entre los electros de las extremidades.
+                      <br>
+
+                      <br></br>
+                      Derivación I: entre electrodos RA (Negativo) - LA (Positivo)
+                      <br>
+                      El ángulo de orientación es de 0°.
+                      <br></br>
+                      Derivación II: entre electrodos RA (Negativo) - LL (Positivo)
+                      <br>
+                      El ángulo de orientación es de 60°.
+                      <br></br>
+                      Derivación III: entre electrodos LA (Negativo) - LL (Positivo)
+                      <br>
+                      El ángulo de orientación es de 120°.
+                    </div>
+                    <div>
+                      <img
+                        src="{% static 'simulators/bipolares.JPG' %}"
+                        style="width: 90%; height: auto; max-width: 100%; padding: 0 20px; margin-top: -20px"
+                      />
+                      <div style="margin: 2px">
+                        Fig 2. Derivaciones bipolares, modificado de <a href="https://www.elhospital.com/temas/Comparacion-entre-electrocardiografos-multicanal-e-interpretativos+8048259?pagina=2" target="_blank">(El Hospital Web, 2005)</a>
+                      </div>                    
+                    </div> 
+                  </div> 
+                  <br></br>
+                  <div 
+                    style="display:flex;
+                          text-align: justify;
+                          justify-content: space-between;
+                          padding-top: 20px;
+                          padding-right: 30px;"
+                  >
+                    <div style="margin-right: 20px; width: 90%">                  
+                      Derivaciones unipolares aumentadas: Son aquellas derivaciones que 
+                      miden la diferencia de potencial entre los  electrodos de 
+                      las extremidades y un punto común de referencia denominado 
+                      Terminal central de Wilson. (TCW).
+                      <br></br>
+                      Derivación aVR: entre electrodos RA(Positivo) - TCW(Negativo)
+                      <br>
+                      El ángulo de orientación es de -30°.
+                      <br></br>
+                      Derivación aVL: entre electrodos LA(Positivo) - TCW(Negativo)
+                      <br>
+                      El ángulo de orientación es de -150°.
+                      <br></br>
+                      Derivación aVF: entre electrodos LL(Positivo) - TCW(Negativo)
+                      <br>
+                      El ángulo de orientación es de 90°.
+                    </div>
+                    <div>
+                      <img
+                        src="{% static 'simulators/bi_au.jpg' %}"
+                        style="width: 90%; height: auto; max-width: 100%; padding: 0 20px; margin-top: -20px"
+                      />
+                      <div style="margin: 2px">
+                        Fig 3. Derivaciones bipolares y unipolares aumentadas, modificado de <a href="https://www.elhospital.com/temas/Comparacion-entre-electrocardiografos-multicanal-e-interpretativos+8048259?pagina=2" target="_blank">(El Hospital Web, 2005)</a>
+                      </div>                    
+                    </div>                     
+                  </div>
+                  <div 
+                    style="display:flex;
+                          text-align: justify;
+                          justify-content: space-between;
+                          padding-top: 20px;
+                          padding-right: 30px;"
+                  >                     
+                    <br></br>
+                    <div style="margin-right: 50px; width: 90%; margin-top: 20px">
+                      Derivaciones precordiales: Son aquellas derivaciones que 
+                      miden la diferencia de potencial entre los electrodos precordiales 
+                      y el Terminal central de Wilson.
+                      <br></br>
+                      Derivación V1: entre electrodos V1 - TCW
+                      <br></br>
+                      Derivación V2: entre electrodos V2 - TCW
+                      <br></br>
+                      Derivación V3: entre electrodos V3 - TCW
+                      <br></br>
+                      Derivación V4: entre electrodos V4 - TCW
+                      <br></br>
+                      Derivación V5: entre electrodos V5 - TCW
+                      <br>
+                    </div>
+                    <div>
+                      <img
+                        src="{% static 'simulators/precordiales.jpg' %}"
+                        style="width: 90%; height: auto; max-width: 100%; padding: 0 20px; margin-top: -5px"
+                      />
+                      <div style="margin: 2px">
+                        Fig 4. Derivaciones precordiales, modificado de <a href="https://www.elhospital.com/temas/Comparacion-entre-electrocardiografos-multicanal-e-interpretativos+8048259?pagina=2" target="_blank">(El Hospital Web, 2005)</a>
+                      </div>                    
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="monitor2"
+            style="
+              width: 100%;
+              max-width: 780px;
+              background-color: #000000;
+              border-color: lightgray;
+              height: 100%;
+              border-radius: 12px 12px 12px 12px;
+              border-style: inset;
+              border-width: 7px;
+            "
+          >
+            <!-- Valores que se muestran en el monitor del simulador -->
+            <div style="text-align: center">
+              <div style="display: inline-block; padding: 5px; color: #ffffff">
+                FC: {{ monitorfc }}
+              </div>
+              <div style="display: inline-block; padding: 5px; color: #ffffff">
+                Amp: {{ monitoramp }}
+              </div>
+              <div style="display: inline-block; padding: 5px; color: #ffffff">
+                Ruido: {{ monitornoise }}
+              </div>
+              <div style="display: inline-block; padding: 5px; color: #ffffff">
+                Tipo: {{ monitortype }}
+              </div>
+            </div>
+            <!-- Lienzos donde se dibujan las gráficas en el monitor -->
+            <div
+              id="ECG1title"
+              style="
+                color: #00ff00;
+                font-size: 18px;
+                margin-left: 30px;
+                padding: 5px;
+              "
+            >
+              {{ graphtitle1 }}
+            </div>
+            <canvas
+              id="myChart"
+              height="60"
+              style="
+                background-color: #000000;
+                border-color: lightgray;
+                border-width: 0px;
+                border-style: inset;
+                border-bottom: 0;
+                border-top: 0;
+                pointer-events:none
+              "
+            ></canvas>
+            <div
+              id="ECG2title"
+              style="
+                color: #00ff00;
+                font-size: 18px;
+                margin-left: 30px;
+                padding: 5px;
+              "
+            >
+              {{ graphtitle2 }}
+            </div>
+            <canvas
+              id="myChart2"
+              height="60"
+              style="
+                background-color: #000000;
+                border-color: lightgray;
+                border-width: 0px;
+                border-style: inset;
+                border-bottom: 0;
+                border-top: 0;
+                pointer-events:none
+              "
+            ></canvas>
+            <div
+              id="ECG3title"
+              style="
+                color: #00ff00;
+                font-size: 18px;
+                margin-left: 30px;
+                padding: 5px;
+              "
+            >
+              {{ graphtitle3 }}
+            </div>
+            <canvas
+              id="myChart3"
+              height="60"
+              style="
+                border-radius: 0 0 12px 12px;
+                background-color: #000000;
+                border-color: lightgray;
+                border-width: 0px;
+                border-style: inset;
+                border-top: 0;
+                pointer-events:none
+              "
+            ></canvas>
+            <div
+              id="F1title"
+              style="
+                display: none;
+                color: #ff0000;
+                font-size: 18px;
+                margin-left: 30px;
+                padding: 5px;
+              "
+            >
+              {{ graphtitle1 }}
+            </div>
+            <canvas
+              id="myChart4"
+              height="60"
+              style="
+                display: none;
+                background-color: #000000;
+                border-color: lightgray;
+                border-width: 0px;
+                border-style: inset;
+                border-bottom: 0;
+                border-top: 0;
+              "
+            ></canvas>
+            <div
+              id="F2title"
+              style="
+                display: none;
+                color: #ff0000;
+                font-size: 18px;
+                margin-left: 30px;
+                padding: 5px;
+              "
+            >
+              {{ graphtitle2 }}
+            </div>
+            <canvas
+              id="myChart5"
+              height="60"
+              style="
+                display: none;
+                background-color: #000000;
+                border-color: lightgray;
+                border-width: 0px;
+                border-style: inset;
+                border-bottom: 0;
+                border-top: 0;
+              "
+            ></canvas>
+            <div
+              id="F3title"
+              style="
+                display: none;
+                color: #ff0000;
+                font-size: 18px;
+                margin-left: 30px;
+                padding: 5px;
+              "
+            >
+              {{ graphtitle3 }}
+            </div>
+            <canvas
+              id="myChart6"
+              height="60"
+              style="
+                display: none;
+                border-radius: 0 0 12px 12px;
+                background-color: #000000;
+                border-color: lightgray;
+                border-width: 0px;
+                border-style: inset;
+                border-top: 0;
+              "
+            ></canvas>
+            <canvas
+              id="myChart7"
+              style="display: none; background-color: #000000"
+              height="70px"
+            ></canvas>
+            <canvas
+              id="myChart8"
+              style="display: none; background-color: #000000"
+              height="70px"
+            ></canvas>
+            <canvas
+              id="myChart9"
+              style="display: none; background-color: #000000"
+              height="70px"
+            ></canvas>
+            <canvas
+              id="myChart10"
+              style="display: none; background-color: #000000"
+              height="70px"
+            ></canvas>
+            <canvas
+              id="myChart11"
+              style="display: none; background-color: #000000"
+              height="70px"
+            ></canvas>
+            <canvas
+              id="myChart12"
+              style="display: none; background-color: #000000"
+              height="70px"
+            ></canvas>
+          </div>
+        </div>
+      </div>
+      <br /><br />
+    </div>
+    <!-- Ventana modal de espera que se muestra mientras el algoritmo del simulador trabaja y se recarga la página con los resultados -->
+    <div id="modal3" class="modal">
+      <div class="modal-content3">
+        <h2>Procesando...</h2>
+      </div>
+    </div>
+    <script>
+      function activeType() {
+        let tipo = document.getElementById("tipoRitmo").value;
+        if (tipo !== "Normal") {
+          document.getElementById("bpm").disabled = false;
+          document.getElementById("defaultFrecuency").disabled = false;
+        }
+      }
+      /* Función que habilita o deshabilita los input acorde al tipo de ritmo */
+      function ableOptions(menuId) {
+        let option = document.getElementById(menuId).value;
+        let values = [
+          {
+            value: "Fibrilación auricular",
+            fc: 140
+          }, {
+            value: "Bradicarida extrema",
+            fc: 45
+          }, {
+            value: "Taquicardia extrema",
+            fc: 160
+          }, {
+            value: "Flúter auricular",
+            fc: 150
+          },
+        ]
+        if (option !== "Normal" && option !== "------") {
+          document.getElementById("defaultFrecuency").selectedIndex = 0;
+          document.getElementById("bpm").disabled = true;
+          document.getElementById("defaultFrecuency").disabled = true;
+          if (option === "Fibrilación ventricular") {
+            document.getElementById("bpm").type = "string";
+            document.getElementById("bpm").value = "--";
+          } else {
+            values.forEach((tipo) => {
+              if (tipo.value === option) {
+                document.getElementById("bpm").value = tipo.fc;
+              }
+            })
+          }
+        }
+        else {
+          document.getElementById("bpm").disabled = false;
+          document.getElementById("bpm").value = 60;
+          document.getElementById("defaultFrecuency").disabled = false;
+        }
+      }
+      /* Función que presenta la ventana modal de información básica */
+      function moreInfo() {
+        window.location.href = '#modal2'
+      }
+      /* Función que habilita la descarga del dataset */
+      let data = "{{ dataset_ecg }}";
+      function downloadCsv() {
+        let hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:attachment/text,' + encodeURI(data);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'dataset_ecg.csv';
+        hiddenElement.click();
+        document.body.removeChild(hiddenElement);
+      }
+      if (data.length > 0) {
+        document.getElementById('descargar').disabled = false;
+      }
+
+      /* Función que envía el formulario y genera la variable ruido */
+      function activeCharge() {
+        let noise = [
+          {
+            check: document.getElementById('check60').checked,
+            value: 60,
+            amp: document.getElementById('amp60').value
+          },
+          {
+            check: document.getElementById('check50').checked,
+            value: 50,
+            amp: document.getElementById('amp50').value
+          },
+          {
+            check: document.getElementById('check35').checked,
+            value: 35,
+            amp: document.getElementById('amp35').value
+          },
+          {
+            check: document.getElementById('check025').checked,
+            value: 0.25,
+            amp: document.getElementById('amp025').value
+          }, {
+            check: document.getElementById('check001').checked,
+            value: 0.01,
+            amp: document.getElementById('amp001').value
+          }, {
+            check: document.getElementById('checkOther').checked,
+            value: parseFloat(document.getElementById('freqOther').value),
+            amp: document.getElementById('ampOther').value
+          },
+        ]
+
+        let jsonNoise = JSON.stringify(noise);
+        document.getElementById('hiddenField').value = JSON.stringify(noise);
+        document.getElementById("form").submit();
+        document.getElementById('modal3').style.opacity = 1;
+      }
+
+      /* Función que permite visualizar menú de opciones de ruido */
+      function activeNoise() {
+        let divNoise = document.getElementById("noiseDropdown")
+        let okFlag = 1;
+        if (divNoise.classList.contains("show")) {
+          let childs = document.getElementById("noiseList").childNodes;
+          childs.forEach(li => {
+            let childsLi = li.childNodes;
+            childsLi.forEach(input => {
+              if (input.tagName === 'INPUT' && input.type === "number") {
+                if ((input.value < 0 || input.value > (input.id === "freqOther" ? 125 : 1000)) && input.value !== '') {
+                  okFlag = 0;
+                  document.getElementById('simulateButton').click();
+                }
+              }
+            });
+          });
+          if (okFlag === 1) {
+            divNoise.classList.toggle("show");
+          }
+        } else {
+          divNoise.classList.toggle("show");
+        }
+      }
+
+      function abledNoise(ampInputname, checkId) {
+        if (document.getElementById(checkId).checked == true) {
+          document.getElementById(ampInputname).disabled = false;
+          document.getElementById(ampInputname).value = '10';
+          if (checkId == 'checkOther') {
+            document.getElementById('freqOther').value = '0';
+            document.getElementById('freqOther').disabled = false;
+          }
+        } else {
+          document.getElementById(ampInputname).disabled = true;
+          document.getElementById(ampInputname).value = '';
+          if (checkId == 'checkOther') {
+            document.getElementById('freqOther').value = '';
+          }
+        }
+      }
+
+      function changeModal(doctor) {
+        let tipo = document.getElementById('tipoRitmo').value
+        let ritmoValues = [
+          {
+            value: "Normal",
+            idModal: "#modal2"
+          },
+          {
+            value: "Fibrilación auricular",
+            idModal: "#modalFibriauricular"
+          },
+          {
+            value: "Fibrilación ventricular",
+            idModal: "#modalFibriventricular"
+          },
+          {
+            value: "Bradicarida extrema",
+            idModal: "#modalBradicardia"
+          }, {
+            value: "Taquicardia extrema",
+            idModal: "#modalTaquicardia"
+          }, {
+            value: "Flúter auricular",
+            idModal: "#modalFlutter"
+          },
+        ]
+        ritmoValues.forEach(ritmo => {
+          if (ritmo.value === tipo) {
+            document.getElementById(doctor).href = ritmo.idModal
+          }
+        })
+      }
+
+      /* Función que pasa los valores a las cajas de texto cuando se seleccionan las frecuencias y ruidos predeterminados de las listas desplegables */
+      function default2(type) {
+        let selector = document.getElementById(type);
+        let fc = document.getElementById('bpm')
+        let tipo = document.getElementById('tipoRitmo')
+        if (type == 'defaultFrecuency') {
+          fc.value = selector.value;
+          tipo.selectedIndex = 2;
+          selector.selectedIndex = 0;
+        }
+      }
+
+      /* Función que pasa los valores a las cajas de texto cuando se seleccionan las Amplitudes predeterminadas de la lista desplegable */
+      function optionDefault() {
+        var option = document.getElementById("default").value;
+        var amplitud = document.getElementById("amplitud");
+        var tiempo = document.getElementById("tiempo");
+        var frecuencyOption = document.getElementById("defaultFrecuency").value;
+        var frecuencia = document.getElementById("frecuencia");
+
+        if (frecuencyOption == "a") {
+          frecuencia.value = 25;
+        }
+        if (frecuencyOption == "b") {
+          frecuencia.value = 50;
+        }
+        if (frecuencyOption == "c") {
+          frecuencia.value = 60;
+        }
+        if (option == "a") {
+          amplitud.value = 0.05;
+        }
+        if (option == "b") {
+          amplitud.value = 0.10;
+        }
+        if (option == "c") {
+          amplitud.value = 0.15;
+        }
+        if (option == "d") {
+          amplitud.value = 0.20;
+        }
+        if (option == "e") {
+          amplitud.value = 0.25;
+        }
+        if (option == "f") {
+          amplitud.value = 0.30;
+        }
+        if (option == "g") {
+          amplitud.value = 0.35;
+        }
+        if (option == "h") {
+          amplitud.value = 0.40;
+        }
+        if (option == "i") {
+          amplitud.value = 0.45;
+        }
+        if (option == "j") {
+          amplitud.value = 0.50;
+        }
+        if (option == "k") {
+          amplitud.value = 1.0;
+        }
+        if (option == "l") {
+          amplitud.value = 1.5;
+        }
+        if (option == "m") {
+          amplitud.value = 2.0;
+        }
+        if (option == "n") {
+          amplitud.value = 2.5;
+        }
+        if (option == "o") {
+          amplitud.value = 3.0;
+        }
+        if (option == "p") {
+          amplitud.value = 3.5;
+        }
+        if (option == "q") {
+          amplitud.value = 4.0;
+        }
+        if (option == "r") {
+          amplitud.value = 4.5;
+        }
+        if (option == "s") {
+          amplitud.value = 5.0;
+        }
+
+        if (timeOption == "a") {
+          tiempo.value = 5;
+        }
+        if (timeOption == "b") {
+          tiempo.value = 10;
+        }
+        if (timeOption == "c") {
+          tiempo.value = 25;
+        }
+        if (timeOption == "d") {
+          tiempo.value = 50;
+        }
+      }
+      /* Función que muestra las gráficas al seleccionar el tipo de gráfica de la lista desplegable */
+      function graphType() {
+        var graphSelector = document.getElementById('graphSelector');
+        var ECG1 = document.getElementById('myChart');
+        var ECG2 = document.getElementById('myChart2');
+        var ECG3 = document.getElementById('myChart3');
+        var ECG1title = document.getElementById('ECG1title');
+        var ECG2title = document.getElementById('ECG2title');
+        var ECG3title = document.getElementById('ECG3title');
+        var F1 = document.getElementById('myChart4');
+        var F2 = document.getElementById('myChart5');
+        var F3 = document.getElementById('myChart6');
+        var F1title = document.getElementById('F1title');
+        var F2title = document.getElementById('F2title');
+        var F3title = document.getElementById('F3title');
+        if (graphSelector.value == "FOURIER") {
+          ECG1.style.display = 'none';
+          ECG2.style.display = 'none';
+          ECG3.style.display = 'none';
+          ECG1title.style.display = 'none';
+          ECG2title.style.display = 'none';
+          ECG3title.style.display = 'none';
+          F1.style.display = 'block';
+          F2.style.display = 'block';
+          F3.style.display = 'block';
+          F1title.style.display = 'block';
+          F2title.style.display = 'block';
+          F3title.style.display = 'block';
+        }
+        if (graphSelector.value == "ECG") {
+          F1.style.display = 'none';
+          F2.style.display = 'none';
+          F3.style.display = 'none';
+          F1title.style.display = 'none';
+          F2title.style.display = 'none';
+          F3title.style.display = 'none';
+          ECG1.style.display = 'block';
+          ECG2.style.display = 'block';
+          ECG3.style.display = 'block';
+          ECG1title.style.display = 'block';
+          ECG2title.style.display = 'block';
+          ECG3title.style.display = 'block';
+        }
+        return(graphSelector.value);
+      }
+      let selectorType = graphType()
+      /* Código JavaScript de las gráficas generadas por el simulador utilizando la librería chart.js */
+      var ctx = document.getElementById('myChart');
+      var ctx2 = document.getElementById('myChart2');
+      var ctx3 = document.getElementById('myChart3');
+      var ctx4 = document.getElementById('myChart4');
+      var ctx5 = document.getElementById('myChart5');
+      var ctx6 = document.getElementById('myChart6');
+      var ctx7 = document.getElementById('myChart7');
+      var ctx8 = document.getElementById('myChart8');
+      var ctx9 = document.getElementById('myChart9');
+      var ctx10 = document.getElementById('myChart10');
+      var ctx11 = document.getElementById('myChart11');
+      var ctx12 = document.getElementById('myChart12');
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: {{ x }},
+          datasets: [
+            {
+              label: 'I',
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "{{ borderColor }}",
+              lineTension: 0
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  min: Math.min(...{{ p_i_iii_min }}),
+                  max: Math.max(...{{ p_i_iii_max }}),
+                  maxTicksLimit: 1
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: "Voltaje (mV)"
+                }
+              }
+            ],
+            xAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: "Tiempo (s)"
+                }
+              }
+            ]
+          },
+          animation: {
+            duration: 0
+          },
+          tooltips: {
+            enabled: false
+          },
+          hover: {
+            mode: null
+          }
+
+        }
+      });
+      var myChart2 = new Chart(ctx2, {
+        type: 'line',
+        data: {
+          labels: {{ x }},
+          datasets: [
+            {
+              label: 'II',
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "{{ borderColor }}",
+              lineTension: 0
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  min: Math.min(...{{ p_i_iii_min }}),
+                  max: Math.max(...{{ p_i_iii_max }}),
+                  maxTicksLimit: 1
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: "Voltaje (mV)"
+                }
+              }
+            ],
+            xAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: "Tiempo (s)"
+                }
+              }
+            ]
+          },
+          animation: {
+            duration: 0
+          }
+        }
+      });
+      var myChart3 = new Chart(ctx3, {
+        type: 'line',
+        data: {
+          labels: {{ x }},
+          datasets: [
+            {
+              label: 'III',
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "{{ borderColor }}",
+              lineTension: 0
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  min: Math.min(...{{ p_i_iii_min }}),
+                  max: Math.max(...{{ p_i_iii_max }}),
+                  maxTicksLimit: 1
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: "Voltaje (mV)"
+                }
+              }
+            ],
+            xAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: "Tiempo (s)"
+                }
+              }
+            ]
+          },
+          animation: {
+            duration: 0
+          }
+        }
+      });
+      var myChart4 = new Chart(ctx4, {
+        type: 'line',
+        data: {
+          labels: {{ x2 }},
+          datasets: [
+            {
+              label: 'avR',
+              data: {{ y4 }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "{{ borderColor2 }}",
+              lineTension: 0,
+              spanGaps: true,
+              steppedLine: true
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  max: Math.max.apply(null, {{ y4 }})
+                }
+              }
+            ]
+          },
+          animation: {
+            duration: 0
+          }
+        }
+      });
+      var myChart5 = new Chart(ctx5, {
+        type: 'line',
+        data: {
+          labels: {{ x2 }},
+          datasets: [
+            {
+              label: 'avF',
+              data: {{ y5 }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "{{ borderColor2 }}",
+              lineTension: 0,
+              spanGaps: true,
+              steppedLine: true
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  max: Math.max.apply(null, {{ y5 }})
+                }
+              }
+            ]
+          },
+          animation: {
+            duration: 0
+          }
+        }
+      });
+      var myChart6 = new Chart(ctx6, {
+        type: 'line',
+        data: {
+          labels: {{ x2 }},
+          datasets: [
+            {
+              label: 'avL',
+              data: {{ y6 }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "{{ borderColor2 }}",
+              lineTension: 0,
+              spanGaps: true,
+              steppedLine: true
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  max: Math.max.apply(null, {{ y6 }})
+                }
+              }
+            ]
+          },
+          animation: {
+            duration: 0
+          }
+        }
+      });
+      var myChart7 = new Chart(ctx7, {
+        type: 'line',
+        data: {
+          labels: {{ x }},
+          datasets: [
+            {
+              label: 'V1',
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "{{ borderColor }}",
+              lineTension: 0
+            }
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  max: Math.max.apply(null, {{ y7 }})
+                }
+              }
+            ]
+          },
+          animation: {
+            duration: 0
+          }
+        }
+      });
+      var myChart8 = new Chart(ctx8, {
+        type: 'line',
+        data: {
+          labels: {{ x }},
+          datasets: [
+            {
+              label: 'V2',
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "{{ borderColor }}",
+              lineTension: 0
+            }
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  max: Math.max.apply(null, {{ y8 }})
+                }
+              }
+            ]
+          },
+          animation: {
+            duration: 0
+          }
+        }
+      });
+      var myChart9 = new Chart(ctx9, {
+        type: 'line',
+        data: {
+          labels: {{ x }},
+          datasets: [
+            {
+              label: 'V3',
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "{{ borderColor }}",
+              lineTension: 0
+            }
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  max: Math.max.apply(null, {{ y9 }})
+                }
+              }
+            ]
+          },
+          animation: {
+            duration: 0
+          }
+        }
+      });
+      var myChart10 = new Chart(ctx10, {
+        type: 'line',
+        data: {
+          labels: {{ x }},
+          datasets: [
+            {
+              label: 'V4',
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "{{ borderColor }}",
+              lineTension: 0
+            }
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  max: Math.max.apply(null, {{ y10 }})
+                }
+              }
+            ]
+          },
+          animation: {
+            duration: 0
+          }
+        }
+      });
+      var myChart11 = new Chart(ctx11, {
+        type: 'line',
+        data: {
+          labels: {{ x }},
+          datasets: [
+            {
+              label: 'V5',
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "{{ borderColor }}",
+              lineTension: 0
+            }
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  max: Math.max.apply(null, {{ y11 }})
+                }
+              }
+            ]
+          },
+          animation: {
+            duration: 0
+          }
+        }
+      });
+      var myChart12 = new Chart(ctx12, {
+        type: 'line',
+        data: {
+          labels: {{ x }},
+          datasets: [
+            {
+              label: 'V6',
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "{{ borderColor }}",
+              lineTension: 0
+            }
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  max: Math.max.apply(null, {{ y12 }})
+                }
+              }
+            ]
+          },
+          animation: {
+            duration: 0
+          }
+        }
+      });
+
+      function interval000() {
+        for (var i = 0; i < {{ x }}.length; i++) {
+          myChart.data.datasets.forEach((dataset) => {
+            dataset.data.push({{ y1 }}[i])
+          });
+          if (i % 10 == 0) {
+            myChart.update();
+          }
+        }
+      }
+      /* Función que grafica dinámicamente (animación) los resultados del algoritmo del simulador */
+      function interval() {
+        let tipo = document.getElementById('tipoRitmo').value
+        var i = 0;
+        setInterval(function () {
+          if (i < {{ x }}.length) {
+
+            myChart.data.datasets[0].data.push({{ y1 }}[i]);
+            myChart2.data.datasets[0].data.push({{ y2 }}[i]);
+            myChart3.data.datasets[0].data.push({{ y3 }}[i]);
+
+            if (i % 10 == 0) {
+              myChart.update();
+              myChart2.update();
+              myChart3.update();
+            }
+            i++
+            if (tipo !== 'Normal' && i === {{ x }}.length) {
+              document.getElementById('doctorLink').click();
+            }
+          }
+        }, 8);
+      }
+      {{ animation }}
+
+    </script>
+    <input id="x" hidden value="{{ x }}" />
+    <input id="y" hidden value="{{ y1 }}" />
+  </body>
+</html>

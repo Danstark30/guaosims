@@ -1,0 +1,134 @@
+@font-face {
+  font-family: aeromatics;
+  src: url("../simulators/AeroMatics-Regular.ttf");
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: aeromatics;
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 200px;
+}
+
+
+header {
+  height: 95px;
+  width: 100%;
+  background: linear-gradient(90deg, #344439, #026e53);
+  padding-left: 30px;
+  padding-right: 100px;
+}
+
+.logo {
+  color: #fff;
+  font-size: 32px;
+  font-weight: 500;
+  margin: auto;
+  float: left;
+  margin: 20px 30px;
+  font-weight: 800;
+  line-height: 60px;
+}
+
+.lab {
+  background-image: url("../simulators/labd.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+}
+
+.module {
+  right: 0;
+  left: 0;
+  display: flex;
+  height: 280px;
+  min-width: 100%;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  margin: 30px 30px;
+  padding: 20px;
+  height: 100%;
+  background-color: #fff;
+  border: 3px solid #026e53;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.intro h3 {
+  color: #026e53;
+  font-size: 28px;
+  padding: 15px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 22px;
+  padding: 10px 20px;
+}
+
+.intro i {
+  color: white;
+}
+
+.module h2 {
+  color: #fff;
+  font-size: 48px;
+  font-weight: 800;
+  margin: auto;
+  text-align: center;
+}
+.module2 {
+  margin-top: 90px;
+  height: 100%;
+  width: 100%;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.module2 .card {
+  margin: 20px;
+  background-color: rgb(218, 245, 216);
+  border-radius: 20px;
+  max-width: 300px;
+  height: 300px;
+  font-size: 20px;
+  text-align: center;
+  color: black;
+  font-weight: 800;
+}
+
+.module2 .card:hover {
+  transition: 0.2s;
+  background: linear-gradient(90deg, #026e53, #344439);
+  color: white;
+}
+
+.module2 .card iframe {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  max-width: 100%;
+}
+
+.module2 .card p {
+  padding: 20px;
+}

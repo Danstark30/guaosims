@@ -1,0 +1,1262 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpO2 | Simulators</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/a98919fe7f.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="{% static 'css/spo2.css' %}" />
+  </head>
+  <body style="text-align: center; margin-top: 50px; background-color: gray">
+    <div id="fondo">
+      <div
+        style="position: relative; width: 100%; height: 100%; margin-top: 20px"
+      >
+        <div style="display: inline-block; vertical-align: top">
+          <div style="text-align: left">
+            <!-- Hipervínculo con el botón para ir a la página de inicio -->
+            <a href="{% url 'index' %}">
+              <button style="margin-left: 15px">
+                <i class="fa fa-home"></i> Inicio
+              </button>
+            </a>
+          </div>
+          <br />
+          <div
+            style="
+              border-radius: 12px;
+              vertical-align: top;
+              padding: 40px;
+              margin-left: 10px;
+              margin-right: 10px;
+              margin-bottom: 20px;
+              color: #ffffff;
+              background-color: #344439;
+              width: 95%;
+              max-width: 300px;
+              display: inline-block;
+            "
+          >
+            <!-- Hipervínculo con la imagen de la ingeniera para abrir la ventana modal -->
+            <a href="#modal">
+              <img
+                src="{% static 'simulators/ingeniera-mitad.png' %}"
+                style="margin-top: -20px; margin-left: 250px; width: 50px"
+              />
+            </a>
+            <!-- Ventana modal con las instrucciones de uso del simulador -->
+            <div id="modal" class="modal">
+              <div
+                class="modal-content"
+                style="font-family: aeromatics; border-radius: 20px; overflow: auto; max-height: 500px;"
+              >
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"
+                ><i
+                  class="fas fa-times-circle"
+                  style="color: black; font-size: 26px; position:absolute; right: 10px; top:20px"
+                ></i
+                ></a>
+
+                <div style="display: flex; justify-content: space-around; padding: 20px">
+                  <img
+                    src="{% static 'simulators/ingeniera-completa.png'  %}"
+                    style="
+                      max-width: 250px;
+                      -webkit-transform: scaleX(-1);
+                      transform: scaleX(-1);
+                      padding-top: 15px;
+                    "
+                  />
+                  <div style="padding:20px;">
+                    <div style="display: flex; margin-bottom: 0; flex-wrap: nowrap;">
+                      <h2 style="padding: 0 20px; margin:0">
+                        Bienvenido al simulador de Saturación Parcial de Oxígeno
+                      </h2>
+                    </div>
+                    <div style="display: flex; justify-content: center; flex-direction: column;">
+                      <h3>UAOSIMS SPO2</h2>
+                      <p>
+                        En esta guía aprenderás a las diferentes funciones del simulador y cómo pueden ayudarte a entender más acerca de la señal de pulsioximetría (SPO2). Recuerda que al actualizar los parámetros de simulación debes siempre presionar el botón
+                        <span style="border-radius: 8px;
+                        background-color: #e8c76a;
+                        padding: 0 5px">
+                        Simular
+                        </span>
+                        para visualizar los cambios
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/spo21.JPG'  %}"
+                  />
+                  <p>La primera casilla de selección te permite seleccionar el porcentaje de saturación de oxígeno (%SPO2). Un porcentaje normal se encuentra entre 95% y 100%. Valores por debajo de este rango son causados por diversas patologías que puedan estar afectando el sistema respiratorio, cardiaco o sanguíneo. Adicionalmente, puedes seleccionar cualquier valor entero de %SPO2 (en un rango de 50 a 100) digitándolo en la casilla de texto del lado derecho.
+                  </p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <p>Actividad: Prueba a simular diferentes valores de saturación, ¿Cómo afecta esto la gráfica de Fotopletismografía?</p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/spo22.JPG'  %}"
+                  />
+                  <p>La segunda casilla de selección te permitirá elegir entre varios valores predeterminados de Frecuencia Cardíaca (FC), expresados en latidos por minuto (lpm). Adicionalmente, puedes seleccionar cualquier valor entero de FC (en un rango de 40 a 200) digitándolo en la casilla de texto del lado derecho. La FC es un valor que cambia constantemente en nuestros cuerpos, dependiendo de la actividad que estemos realizando, nuestro estado emocional o nuestra condición física.</p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <p>Actividad: Prueba a simular valores muy bajos o altos de FC ¿Qué cambios observas en la forma de la onda fotopletismográfica? </p>
+                </div>
+                
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/spo23.JPG'  %}"
+                  />
+                  <p>La tercera casilla de selección te permitirá elegir entre las distintas gráficas que quieres visualizar. La única gráfica que depende de la FC es la dr fotopletismografía (PPG), las demás dependen solo del valor de %SPO2. Estas gráficas no se observan en otros equipos o simuladores, pero en UAOSIM SPO2 se han incluido pues nos ayudan a visualizar el cálculo interno de %SPO2 a partir de las señales de luz emitidas y adquiridas por el sensor de pulsoximetría. La gráfica R/IR nos muestra una comparación entre las señales sensadas por el fotodiodo del sensor al atravesar la piel los haces de luz roja o infrarroja. La gráfica SPO2 vs R nos muestra la relación entre el valor calculado de SPO2 y el ratio R de las señales roja/infrarroja. La gráfica α vs λ nos muestra los niveles de absorción para luz infrarroja y roja a medida que cambia el %SPO2. </p>
+                </div>
+                <div style="display: flex; padding: 0 30px;">
+                  <p>Actividad: Prueba a simular valores de %SPO2 de 50, 80, 95 y 100  ¿Qué cambios observas en cada una de las gráficas? </p>
+                </div>
+
+                <div style="display: flex; padding: 0 30px;">
+                  <img
+                  src="{% static 'simulators/spo24.JPG'  %}"
+                  style="max-width: 100px;"
+                  />
+                  <div style="display: flex; flex-direction: column;">
+                    <p>La sexta casilla de selección te permitirá elegir entre varios valores predeterminados de la ventana de tiempo a observar. </p>
+                    <p>Actividad: Prueba a simular la señal de PPG y observarla en distintas ventanas de tiempo. ¿Qué factores crees que podrían alterarla? </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <form name="form" id="form" method="POST" onsubmit="document.getElementById('modal3').style.opacity=1">
+              {% csrf_token %}
+              <!-- Lista desplegable de valores predeterminados de %SpO2 -->
+              <div class="row">
+                <select id="defaultSPO2" onchange="optionDefault()">
+                  <option>% SpO2</option>
+                  <option value="a">Óptima</option>
+                  <option value="b">Normal</option>
+                  <option value="c">Tolerable</option>
+                  <option value="d">Disminuida</option>
+                  <option value="e">Critica</option>
+                  <option value="f">Severa</option>
+                  <option value="g">Mortal</option>
+                </select>
+                <!-- Caja de texto para la entrada manual del valor de %SpO2 -->
+                <input
+                  required
+                  id="spo2"
+                  name="spo2"
+                  type="number"
+                  value="{{ setSpO2 }}"
+                  placeholder="SpO2"
+                  min="50"
+                  max="100"
+                  onchange="document.getElementById('defaultSPO2').selectedIndex=0"
+                />
+              </div>
+              <div class="row">
+              <!-- Lista desplegable de valores predeterminados de Frecuencia Cardíaca -->
+                <select id="defaultHR" onchange="default2('defaultHR')">
+                  <option>Frecuencia Cardíaca (lpm)</option>
+                  <option value="40">40 lpm</option>
+                  <option value="50">50 lpm</option>
+                  <option value="60">60 lpm</option>
+                  <option value="80">80 lpm</option>
+                  <option value="90">90 lpm</option>
+                  <option value="100">100 lpm</option>
+                  <option value="120">120 lpm</option>
+                  <option value="140">140 lpm</option>
+                  <option value="160">160 lpm</option>
+                  <option value="180">180 lpm</option>
+                  <option value="200">200 lpm</option>
+                </select>
+                <!-- Caja de texto para la entrada manual del valor de %SpO2 -->
+                <input
+                  required
+                  id="hr"
+                  name="hr"
+                  type="number"
+                  value="{{ setfc }}"
+                  placeholder="HR"
+                  min="40"
+                  max="250"
+                  onchange="document.getElementById('defaultHR').selectedIndex=0"
+                  style="height: 30px; text-align: center"
+                />
+              </div>
+              <!-- Lista desplegable con los tipos de gráficos -->
+              <select
+                name="graphSelector"
+                id="graphSelector"
+                onchange="graphType()"
+              >
+                <option {{ setppg }} value="PPG">PPG</option>
+                <option {{ setppgfull }} value="PPGFULL">PPG R & IR</option>
+                <option {{ setirvsr }} value="IRvsR">R / IR</option>
+                <option {{ setspo2vsr }} value="SpO2vsR">SpO2 vs R</option>
+                <option {{ setavsl }} value="AvsL">&alpha; vs &lambda;</option>
+              </select>
+              <!-- Lista desplegable de valores predeterminados de Tiempo -->
+              <select name="tiempo" id="defaultTime">
+                <option value="5">Tiempo observado</option>
+                <option {{ set5 }} value="5">5s</option>
+                <option {{ set10 }} value="10">10s</option>
+                <option {{ set15 }} value="15">15s</option>
+                <option {{ set20 }} value="20">20s</option>
+                <option {{ set25 }} value="25">25s</option>
+                <option {{ set30 }} value="30">30s</option>
+                <option {{ set35 }} value="35">35s</option>
+                <option {{ set40 }} value="40">40s</option>
+                <option {{ set45 }} value="45">45s</option>
+                <option {{ set50 }} value="50">50s</option>
+              </select>
+              <!-- Botón para enviar los datos y simular -->
+              <input
+                class="btn"
+                type="submit"
+                value="Simular"
+              />
+              <button
+                id="descargar"
+                class="btn"
+                type="button"
+                value="Descargar"
+                onclick="downloadCsv()"
+                disabled
+              >
+                Descargar
+              </button>
+            </form>
+          </div>
+        </div>
+        <div
+          style="
+            border-radius: 12px;
+            text-align: left;
+            border: #bdbdbd solid;
+            margin-left: 10px;
+            margin-right: 20px;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            vertical-align: middle;
+            width: 80%;
+            padding: 20px 30px 20px 20px;
+            max-width: 780px;
+            display: inline-block;
+          "
+        >
+          <div style="text-align: right">
+            <!-- Hipervínculo con la imagen del médico para abrir la ventana modal -->
+            <a href="#modal2" id="doctorLink" onclick="changeModal(this.id)">
+              <img
+                src="{% static 'simulators/doctor-mitad.png' %}"
+                style="display: inline-block; margin-top: -20px; width: 50px"
+              />
+            </a>
+          </div>
+          <!-- Ventana modal de bienvenida y descripción del simulador -->
+          <div id="modal2" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Bienvenido al Monitor de Saturación de Oxígeno (Pulsioxímetro)</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex; flex-direction: column">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 140px;"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        padding-top: 20px;
+                        padding-left: 30px;
+                        padding-right: 30px;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      Un oxímetro de pulso o pulsioxímetro es un aparato médico que
+                      mide de manera indirecta la saturación de oxígeno de la sangre
+                      roja de un paciente, no directamente a través de una muestra
+                      de sangre. Algunos oxímetros pueden ser sensibles a los
+                      cambios en el volumen de sangre en la piel, produciendo una
+                      fotopletismograma. A menudo se conecta el oxímetro de pulso a
+                      un monitor médico para que el personal de salud pueda ver la
+                      oxigenación de un paciente en todo momento. La mayoría de los
+                      monitores también muestran la frecuencia cardíaca.
+                    </div>
+                    <br></br>
+                    <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                    <br></br>
+                    <div style="display: flex; align-items:center; text-align:center; padding: auto; margin: auto">
+                      <h2>Interpretación de Señales<h2>
+                      <img
+                        src="{% static 'simulators/ingeniera-mitad.png' %}"
+                        style="width: 50px"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: flex;
+                        flex-direction: column;
+                        text-align: justify;
+                        padding-left: 30px;
+                        padding-right: 30px;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      <h3>Curva R vs SPO2</h3>
+                      <div style="display: flex">
+                        Esta curva describe la relación entre el Ratio generado por las componentes roja
+                        e infrarroja y el valor del porcentaje de SpO2 simulado. Estas curvas pueden variar
+                        acorde al sensor utilizado, por ende es normal encontrar una curva diferente para
+                        equipos biomédicos de diferentes marcas.
+                      </div>
+                    </div>
+                    <div
+                      style="
+                        display: flex;
+                        flex-direction: column;
+                        text-align: justify;
+                        padding-top: 20px;
+                        padding-left: 30px;
+                        padding-right: 30px;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      <h3>Curva absorbancia de Oxihemoglobina y Desoxihemoglobina</h3>
+                      <div style="display: flex">
+                      La luz roja e infrarroja son emitidas a 650 nm y 940 nm respectivamente. La cantidad de 
+                      luz absorbida por la hemoglobina varía acorde a la longitud de onda. En esta curva se
+                      visualiza la relación entre la absorbancia de luz por parte de la hemoglobina (diferentes
+                      concentraciones de oxígeno) a determinada longitud de onda.
+                      </div>
+                    </div>
+                    <br></br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="modalDisminuida" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex; align-items: center;">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 140px;"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        width: 50%;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      <h2>Hipoxia leve</h2>
+                      Se caracteriza por una saturación parcial de oxígeno disminuida, en un rango
+                      entre 94 % y 90 %.
+                    </div>
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/spo2_disminuida.JPG' %}"
+                        style="width: 90%; height: auto; max-width: 100%"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="modalCritica" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex; align-items: center;">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 140px;"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        width: 50%;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      <h2>Hipoxia Crítica</h2>
+                      Se caracteriza por una saturación parcial de oxígeno en un rango entre
+                      89% y 80%.
+                    </div>
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/spo2_critica.JPG' %}"
+                        style="width: 90%; height: auto; max-width: 100%"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="modalSevera" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex; align-items: center;">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 140px;"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        width: 50%;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      <h2>Hipoxia Severa</h2>
+                      Se caracteriza por una saturación parcial de oxígeno
+                      entre 79 % y 70 %.
+                    </div>
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/spo2_severa.JPG' %}"
+                        style="width: 90%; height: auto; max-width: 100%"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="modalMortal" class="modal">
+            <div
+              class="modal-content"
+              style="text-align: center; border-radius: 20px"
+            >
+              <div id="general">
+                <div style="background: linear-gradient(90deg, #344439, #026e53); height: 8px; border-radius: 5px;"></div>
+                <a href="#"><i
+                    class="fas fa-times-circle"
+                    style="color: black; font-size: 26px; position:absolute; right: 20px; top:20px"
+                  ></i
+                  ></a>
+                <h2>Diagnóstico</h2>
+                <div style="display: flex; flex-direction: column">
+                  <div style="display: flex; align-items: center;">
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/doctor-completo.png' %}"
+                        style="width: 140px;"
+                      />
+                    </div>
+                    <div
+                      style="
+                        display: inline-block;
+                        text-align: justify;
+                        width: 50%;
+                      "
+                    >
+                      <!-- Espacio para comentarios sobre este simulador -->
+                      <h2>Hipoxia Mortal</h2>
+                      Se caracteriza por una saturación parcial de oxígeno
+                      menor a 70%.
+                    </div>
+                    <div style="display: inline-block; vertical-align: top">
+                      <img
+                        src="{% static 'simulators/spo2_mortal.JPG' %}"
+                        style="width: 90%; height: auto; max-width: 100%"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            style="
+              text-align: center;
+              font-family: LT-Emphasis;
+              border-radius: 12px;
+              background-color: #000000;
+              border-color: lightgray;
+              border-width: 7px;
+              border-style: inset;
+              position: relative
+            "
+          >
+            <!-- Título que se muestra en el monitor del simulador -->
+            <div id="title" style="color: #ffffff">Fotopletismografía</div>
+            <!-- Valores que se muestran en el monitor del simulador -->
+            <div
+              id="Rac"
+              style="display: inline-block; padding: 5px; color: #ff0000"
+            >
+              Rac: {{ Rac }}
+            </div>
+            <div
+              id="Rdc"
+              style="display: inline-block; padding: 5px; color: #ffffff"
+            >
+              Rdc: {{ Rdc }}
+            </div>
+            <div
+              id="IRac"
+              style="display: inline-block; padding: 5px; color: #0000ff"
+            >
+              IRac: {{ IRac }}
+            </div>
+            <div
+              id="IRdc"
+              style="display: inline-block; padding: 5px; color: #ffffff"
+            >
+              IRdc: {{ IRdc }}
+            </div>
+            <div
+              id="FC"
+              style="display: inline-block; padding: 5px; color: #ffffff"
+            >
+              FC: {{ fc }}
+            </div>
+            <div
+              id="varR"
+              style="display: inline-block; padding: 5px; color: #ffffff; position: absolute; right: 5px"
+            >
+              <p style="padding: 0; margin: 0">
+                {{Rac}} * {{Rdc}}
+                <br>
+                &nbsp&nbsp&nbsp&nbsp&nbspR: &nbsp ------------ : &nbsp {{ varR }}
+                <br>
+                {{IRac}} * {{IRdc}}
+              </p>
+            </div>
+            <div
+              id="varSpO2"
+              style="display: none; padding: 5px; color: #ffffff"
+            >
+              SpO2: {{ varSpo2 }}
+            </div>
+            <div id="varR2" style="display: none; padding: 5px; color: #ffffff">
+              R: {{ varR2 }}
+            </div>
+            <div
+              id="alpha650"
+              style="display: none; padding: 5px; color: #ffffff"
+            >
+              &alpha;(650nm): {{ alpha650 }}
+            </div>
+            <div
+              id="alpha940"
+              style="display: none; padding: 5px; color: #ffffff"
+            >
+              &alpha;(940nm): {{ alpha940 }}
+            </div>
+            <!-- Lienzos donde se dibujan las gráficas en el monitor -->
+            <canvas
+              id="myChart"
+              height="170"
+              style="
+                border-radius: 12px;
+                background-color: #000000;
+                border-color: lightgray;
+              "
+            ></canvas>
+            <canvas
+              id="myChart2"
+              height="170"
+              style="
+                display: none;
+                border-radius: 12px;
+                background-color: #000000;
+                border-color: lightgray;
+              "
+            ></canvas>
+            <canvas
+              id="myChart3"
+              height="170"
+              style="
+                display: none;
+                border-radius: 12px;
+                background-color: #000000;
+                border-color: lightgray;
+              "
+            ></canvas>
+            <canvas
+              id="myChart4"
+              height="170"
+              style="
+                display: none;
+                border-radius: 12px;
+                background-color: #000000;
+                border-color: lightgray;
+              "
+            ></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Ventana modal de espera que se muestra mientras el algoritmo del simulador trabaja y se recarga la página con los resultados -->
+    <div id="modal3" class="modal">
+      <div class="modal-content3">
+        <h2>Procesando...</h2>
+      </div>
+    </div>
+    <script>
+      function changeModal(doctor) {
+        let realValue = document.getElementById("spo2").value
+        let ritmoValues = [
+          {
+            value: 94,
+            idModal: "#modal2"
+          },
+          {
+            value: 89,
+            idModal: "#modalDisminuida"
+          },
+          {
+            value: 79,
+            idModal: "#modalCritica"
+          },
+          {
+            value: 69,
+            idModal: "#modalSevera"
+          },
+          {
+            value: 49,
+            idModal: "#modalMortal"
+          },
+        ]
+        for(ritmo of ritmoValues) {
+          if (realValue > ritmo.value) {
+            document.getElementById(doctor).href = ritmo.idModal;
+            break;
+          }
+        }
+      }
+      if (window.innerWidth < 960) {
+        let r = document.getElementById("varR");
+        r.style.position = "static";
+      }
+      let data = "{{ dataset_spo2 }}";
+      function downloadCsv() {
+        let hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:attachment/text,' + encodeURI(data);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'dataset_spo2.csv';
+        hiddenElement.click();
+        document.body.removeChild(hiddenElement);
+      }
+      if (data.length > 0) {
+        document.getElementById('descargar').disabled = false;
+      }
+      /* Función que cambia al tipo de gráfica seleccionada de la lista desplegable */
+      function graphType() {
+        var graphSelector = document.getElementById('graphSelector');
+        var PPG = document.getElementById('myChart');
+        var IRvsR = document.getElementById('myChart2');
+        var AvsL = document.getElementById('myChart3');
+        var SpO2vsR = document.getElementById('myChart4');
+        var title = document.getElementById('title');
+        var varR2 = document.getElementById('varR2');
+        var varR = document.getElementById('varR');
+        var varSpO2 = document.getElementById('varSpO2');
+        var Rac = document.getElementById('Rac');
+        var Rdc = document.getElementById('Rdc');
+        var IRac = document.getElementById('IRac');
+        var IRdc = document.getElementById('IRdc');
+        var FC = document.getElementById('FC');
+        var alpha650 = document.getElementById('alpha650');
+        var alpha940 = document.getElementById('alpha940');
+        if (myChart) {
+          let y_len = myChart.data.datasets[0].data.length;
+          if (y_len === {{ y1 }}.length) {
+            interval();
+          }
+        }
+        if (graphSelector.value == "PPGFULL") {
+          IRvsR.style.display = 'none';
+          FC.style.display = 'inline-block';
+          AvsL.style.display = 'none';
+          SpO2vsR.style.display = 'none';
+          PPG.style.display = 'block';
+          title.style.display = 'block';
+          alpha650.style.display = 'none';
+          alpha940.style.display = 'none';
+          varR2.style.display = 'none';
+          varSpO2.style.display = 'none';
+          Rac.style.display = 'inline-block';
+          Rdc.style.display = 'inline-block';
+          IRac.style.display = 'inline-block';
+          IRdc.style.display = 'inline-block';
+          varR.style.display = 'inline-block';
+        }
+        if (graphSelector.value == "PPG") {
+          FC.style.display = 'inline-block';
+          IRvsR.style.display = 'none';
+          AvsL.style.display = 'none';
+          SpO2vsR.style.display = 'none';
+          PPG.style.display = 'block';
+          title.style.display = 'block';
+          alpha650.style.display = 'none';
+          alpha940.style.display = 'none';
+          varR2.style.display = 'none';
+          varSpO2.style.display = 'none';
+          Rac.style.display = 'none';
+          Rdc.style.display = 'none';
+          IRac.style.display = 'inline-block';
+          IRdc.style.display = 'inline-block';
+          varR.style.display = 'inline-block';
+        }
+        if (graphSelector.value == "IRvsR") {
+          FC.style.display = 'none';
+          PPG.style.display = 'none';
+          AvsL.style.display = 'none';
+          SpO2vsR.style.display = 'none';
+          title.style.display = 'none';
+          IRvsR.style.display = 'block';
+          alpha650.style.display = 'none';
+          alpha940.style.display = 'none';
+          varR2.style.display = 'none';
+          varSpO2.style.display = 'none';
+          Rac.style.display = 'inline-block';
+          Rdc.style.display = 'inline-block';
+          IRac.style.display = 'inline-block';
+          IRdc.style.display = 'inline-block';
+          varR.style.display = 'inline-block';
+        }
+        if (graphSelector.value == "AvsL") {
+          PPG.style.display = 'none';
+          IRvsR.style.display = 'none';
+          FC.style.display = 'none';
+          SpO2vsR.style.display = 'block';
+          AvsL.style.display = 'none';
+          title.style.display = 'none';
+          Rac.style.display = 'none';
+          Rdc.style.display = 'none';
+          IRac.style.display = 'none';
+          IRdc.style.display = 'none';
+          varR.style.display = 'none';
+          varR2.style.display = 'none';
+          varSpO2.style.display = 'none';
+          alpha650.style.display = 'inline-block';
+          alpha940.style.display = 'inline-block';
+        }
+        if (graphSelector.value == "SpO2vsR") {
+          PPG.style.display = 'none';
+          FC.style.display = 'none';
+          IRvsR.style.display = 'none';
+          AvsL.style.display = 'block';
+          SpO2vsR.style.display = 'none';
+          title.style.display = 'none';
+          Rac.style.display = 'none';
+          Rdc.style.display = 'none';
+          IRac.style.display = 'none';
+          IRdc.style.display = 'none';
+          varR.style.display = 'none';
+          alpha650.style.display = 'none';
+          alpha940.style.display = 'none';
+          varR2.style.display = 'inline-block';
+          varSpO2.style.display = 'inline-block';
+        }
+      }
+      graphType();
+      /* Función que cambia los valores de Frecuencia Cardíaca en la caja de texto al seleccionar valores predeterminados de la lista desplegable */
+      function default2(type) {
+        var selector = document.getElementById(type);
+        var hr = document.getElementById('hr')
+        if (type == 'defaultHR') {
+          hr.value = selector.value;
+        }
+        if (type == 'defaultPD') {
+          pd.value = selector.value;
+        }
+        if (type == 'defaultFC') {
+          fc.value = selector.value;
+        }
+        document.getElementById('default').selectedIndex = 0;
+      }
+      /* Función que cambia los valores de %SpO2 en la caja de texto al seleccionar valores predeterminados de la lista desplegable */
+      function optionDefault() {
+        var spo2Option = document.getElementById("defaultSPO2").value;
+        var spo2 = document.getElementById("spo2");
+        var hrOption = document.getElementById("defaultHR").value;
+        var hr = document.getElementById("hr");
+        var timeOption = document.getElementById("defaultTime").value;
+        var tiempo = document.getElementById("tiempo");
+        if (spo2Option == "a") {
+          spo2.value = 100;
+        }
+        if (spo2Option == "b") {
+          spo2.value = 97;
+        }
+        if (spo2Option == "c") {
+          spo2.value = 95;
+        }
+        if (spo2Option == "d") {
+          spo2.value = 90;
+        }
+        if (spo2Option == "e") {
+          spo2.value = 85;
+        }
+        if (spo2Option == "f") {
+          spo2.value = 75;
+        }
+        if (spo2Option == "g") {
+          spo2.value = 55;
+        }
+        if (hrOption == "a") {
+          hr.value = 25;
+        }
+        if (hrOption == "b") {
+          hr.value = 50;
+        }
+        if (hrOption == "c") {
+          hr.value = 60;
+        }
+        if (timeOption == "a") {
+          tiempo.value = 5;
+        }
+        if (timeOption == "b") {
+          tiempo.value = 10;
+        }
+        if (timeOption == "c") {
+          tiempo.value = 25;
+        }
+        if (timeOption == "d") {
+          tiempo.value = 50;
+        }
+      }
+      /* Código JavaScript de las gráficas generadas por el simulador utilizando la librería chart.js */
+      var ctx = document.getElementById('myChart');
+      var ctx2 = document.getElementById('myChart2');
+      var ctx3 = document.getElementById('myChart3');
+      var ctx4 = document.getElementById('myChart4');
+      var ctx5 = document.getElementById('myChart5');
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: {{ x }},
+          datasets: [
+            {
+              label: false,
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#0000ff",
+              lineTension: 0
+            },
+            {
+              label: false,
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#ff0000",
+              lineTension: 0
+            },
+            {
+              label: false,
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#ffffff",
+              lineTension: 0,
+              borderDash: [1, 10],
+            },
+            {
+              label: false,
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#0000ff",
+              lineTension: 0,
+              borderDash: [1, 10],
+            },
+            {
+              label: false,
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#0000ff",
+              lineTension: 0,
+              borderDash: [1, 10],
+            },
+            {
+              label: false,
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#ff0000",
+              lineTension: 0,
+              borderDash: [1, 10],
+            },
+            {
+              label: false,
+              data: [],
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#ff0000",
+              lineTension: 0,
+              borderDash: [1, 10],
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          title: {
+            display: false,
+            text: 'Fotopletismografía',
+            fontColor: '#ffffff'
+          },
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: false,
+                  steps: 50,
+                  max: Math.max(...({{ y2 }}.concat({{ y1 }}))) + 0.05
+                },
+                display: false
+              }
+            ]
+          },
+          animation: {
+            duration: 0
+          }
+        }
+      });
+      var myChart2 = new Chart(ctx2, {
+        type: 'line',
+        data: {
+          labels: {{ t }},
+          datasets: [
+            {
+              label: false,
+              data: {{ s_ir }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#0000ff",
+              lineTension: 0
+            }, {
+              label: false,
+              data: {{ s_r }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#ff0000",
+              lineTension: 0
+            }, {
+              label: false,
+              data: {{ s_r }}.slice().fill(1.45),
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#ffffff",
+              lineTension: 0,
+              borderDash: [1, 10],
+            }, {
+              label: false,
+              data: {{ s_r }}.slice().fill(Math.max(...{{ s_r }})),
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#ff0000",
+              lineTension: 0,
+              borderDash: [1, 10],
+            }, {
+              label: false,
+              data: {{ s_r }}.slice().fill(Math.min(...{{ s_r }})),
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#ff0000",
+              lineTension: 0,
+              borderDash: [1, 10],
+            }, {
+              label: false,
+              data: {{ s_ir }}.slice().fill(Math.max(...{{ s_ir }})),
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#0000ff",
+              lineTension: 0,
+              borderDash: [1, 10],
+            }, {
+              label: false,
+              data: {{ s_ir }}.slice().fill(Math.min(...{{ s_ir }})),
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#0000ff",
+              lineTension: 0,
+              borderDash: [1, 10],
+            },
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          scales: {
+            xAxes: [
+              {
+                display: 'true'
+              }
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  max: Math.max(...({{ y2 }}.concat({{ y1 }}))) + 0.05
+                },
+              }
+            ]
+          }
+        }
+      });
+      var myChart4 = new Chart(ctx4, {
+        type: 'line',
+        data: {
+          labels: {{ x_estandar }},
+          datasets: [
+            {
+              label: "λ R(650) | IR(940) ",
+              data: {{ ln }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "yellow",
+              lineTension: 0,
+              borderWidth: 1,
+              steppedLine: true,
+              borderDash: [3, 5]
+            }, {
+              label: "HbO2 Real",
+              data: {{ hb }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#ff00ff",
+              lineTension: 0,
+              borderWidth: 4,
+              borderDash: [10, 5]
+            }, {
+              label: "HbO2",
+              data: {{ hb100 }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#ff0000",
+              lineTension: 0
+            }, {
+              label: "Hb",
+              data: {{ h0 }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#0000ff",
+              lineTension: 0
+            }
+          ]
+        },
+        options: {
+          scales: {
+            xAxes: [
+              {
+                display: 'true',
+                scaleLabel: {
+                  display: true,
+                  labelString: "Longitud de Onda λ (nm)"
+                }, 
+              },
+            ],
+            yAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: "Absorbancia α"
+                }
+              }
+            ]
+          }
+        }
+      });
+      var myChart3 = new Chart(ctx3, {
+        type: 'line',
+        data: {
+          labels: {{ R }},
+          datasets: [
+            {
+              label: false,
+              data: {{ Ri }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#ff0000",
+              lineTension: 0,
+              steppedLine: true,
+              borderWidth: 1,
+              borderDash: [3, 5]
+            }, {
+              label: false,
+              data: {{ SpO2 }},
+              pointRadius: 0,
+              fill: false,
+              borderColor: "#0000ff",
+              lineTension: 0
+            }
+          ]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          scales: {
+            xAxes: [
+              {
+                display: 'true',
+                ticks: {
+                  beginAtZero: false,
+                  steps: 50,
+                  max: Math.max.apply(null, {{ SpO2 }}),
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Valor R'
+                }
+              }
+            ],
+            yAxes: [
+              {
+                scaleLabel: {
+                  display: true,
+                  labelString: "% SpO2"
+                }
+              }
+            ]
+          }
+        }
+      });
+      /* Función que grafica dinámicamente (animación) los resultados del algoritmo del simulador */
+      function interval() {
+        
+        let i = 0;
+        let dcLevel = {{ y2 }}.slice();
+        let acIrup = {{ y2 }}.slice();
+        let acIrdown = {{ y2 }}.slice();
+        let acRup = {{ y2 }}.slice();
+        let acRdown = {{ y2 }}.slice();
+        let flag = false;
+
+        acIrup.fill(Math.max(...{{ y2 }}));
+        acIrdown.fill(Math.min(...{{ y2 }}));
+        acRup.fill(Math.max(...{{ y1 }}));
+        acRdown.fill(Math.min(...{{ y1 }}));
+        dcLevel.fill(1.45)
+
+        if (document.getElementById("graphSelector").value === "PPGFULL") {
+          flag = true;
+        }
+
+        myChart.data.datasets.forEach((ds) => {
+          ds.data = []
+        })
+
+        setInterval(function () {
+          if (i < {{ x }}.length) {
+            if (document.getElementById("graphSelector").value === "PPGFULL" && flag !== true) {
+              myChart.data.datasets.forEach((ds) => {
+                ds.data = []
+              })
+              i = 0;
+              flag = true;
+            }
+            else if (document.getElementById("graphSelector").value === "PPG" && flag !== false) {
+              myChart.data.datasets.forEach((ds) => {
+                ds.data = []
+              })
+              i = 0;
+              flag = false;
+            }
+            myChart.data.datasets[0].data.push({{ y2 }}[i]);
+            if (flag === true) {
+              myChart.data.datasets[1].data.push({{ y1 }}[i]);
+            }
+            myChart.update();
+            i++
+            if (i === {{ x }}.length) {
+              myChart.data.datasets[2].data = dcLevel;
+              myChart.data.datasets[3].data = acIrup;
+              myChart.data.datasets[4].data = acIrdown;
+              if (flag === true) {
+                myChart.data.datasets[5].data = acRup;
+                myChart.data.datasets[6].data = acRdown;
+              }
+              myChart.update();
+            }
+          }
+        }, 20);
+      }
+      {{ animation }}
+    </script>
+  </body>
+</html>

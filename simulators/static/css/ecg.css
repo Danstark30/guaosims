@@ -1,0 +1,231 @@
+body {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-image: url("../simulators/lab.png");
+}
+@font-face {
+	font-family: aeromatics;
+	src: url("/static/simulators/AeroMatics-Regular.ttf");
+}
+@font-face {
+	font-family: LT-Emphasis;
+	src: url("/static/simulators/LT-Emphasis.ttf");
+}
+input {
+	width: 75px;
+	height: 30px;
+	border-radius: 8px;
+	background-color: #e6e6f2;
+	font-family: "aeromatics";
+	text-align: center;
+	padding: 0;
+}
+.btn {
+	border-radius: 8px;
+	width: 180px;
+	background-color: #e8c76a;
+	font-family: "aeromatics";
+	margin: 0 auto 10px auto;
+}
+form {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	max-height: 500px;
+	justify-content: space-around;
+}
+button {
+	cursor: pointer;
+	border-style: outset;
+	background-color: #ffffff;
+	width: 180px;
+	height: 35px;
+	margin: 0 auto 10px auto;
+	border-radius: 8px;
+}
+select {
+	border-radius: 4px;
+	background-color: #e8c76a;
+	font-family: aeromatics;
+	height: 30px;
+	margin: 0 0 15px 0;
+}
+
+form .row {
+	display:flex;
+	justify-content: space-around;
+	margin: 0 0 10px 0;
+}
+
+form .row select {
+	flex-grow: 1;
+	margin-right: 8px;
+	text-align: center;
+}
+
+.monitor {
+	background-color: blue;
+	color: #ffffff;
+	font-family: LT-Emphasis;
+}
+.monitor2 {
+	background-color: blue;
+	color: #ffffff;
+	font-family: LT-Emphasis;
+}
+.monitorInput {
+	font-family: LT-Emphasis;
+}
+.modal {
+	overflow: scroll;
+	background-color: rgba(0, 0, 0, 0.8);
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+	pointer-events: none;
+	transition: all 1s;
+	z-index: 2
+}
+.modal-content {
+	color: #000000;
+	background-color: #ffffff;
+	width: 80%;
+	max-width: 800px;
+	padding: 10px 20px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	position: relative;
+}
+.modal-content p {
+	text-align: justify;
+	font-size: 18px;
+}
+.modal-content img {
+	width: 80%;
+	max-width: 200px;
+	height: 80%;
+	padding: 20px;
+}
+
+@media only screen and (max-width: 480px) {
+	.modal-content div{
+		display: flex;
+		flex-wrap: wrap;
+	}
+}
+.modal-content3 {
+	color: #000000;
+	background-color: #ffffff;
+	width: 300px;
+	padding: 10px 20px;
+	margin: 20% auto;
+	position: relative;
+	border-radius: 20px;
+}
+#modal:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+#modal2:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+#modalFibriauricular:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+#modalFibriventricular:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+#modalTaquicardia:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+#modalBradicardia:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+#modalFlutter:target {
+	opacity: 1;
+	pointer-events: auto;
+}
+.modalimg {
+	width: 200px;
+}
+.dropdown {
+	position: relative;
+	padding: 0;
+	margin: 0 auto 10px auto;
+}
+
+.noiseDropdown {
+	display: none;
+	position: absolute;
+	left: -40px;
+	background-color: #E8C76A;
+	min-width: 240px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	border-radius: 10px;
+	font-family: "aeromatics";
+	color: #000000;
+	font-size: 12px;
+	padding: 10px 5px;
+}
+
+li {
+	display: flex;
+	flex: none;
+	justify-content: space-between;
+	padding: 5px 5px;
+	width: 90%;
+}
+
+li label {
+	margin: 0 1px;
+}
+li input {
+	height: 20px;
+	max-width: 55px;
+	margin: 0 2px;
+	text-align: center;
+}
+
+li input::placeholder {
+	text-align: right;
+}
+
+.show {display:block;}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.taqui {
+	display: inline-block;
+	text-align: justify;
+	padding-top: 20px;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+.moreInfor {
+	padding: auto;
+	margin: 20px auto;
+	background: linear-gradient(90deg, #344439, #026e53);
+	color: #ffffff;
+	padding: 10px 20px;
+	font-weight: 700;
+	width: auto;
+	height: auto;
+	font-size: 1rem;
+}
+.moreInfor:hover {
+	background: linear-gradient(90deg, #026e53, #344439);
+}
